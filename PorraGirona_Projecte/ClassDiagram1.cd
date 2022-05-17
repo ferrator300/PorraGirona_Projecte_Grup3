@@ -41,13 +41,13 @@
     <Position X="6.75" Y="1.5" Width="2.5" />
     <AssociationLine Name="PollMember" Type="PorraGirona_Projecte.PollMember" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="7.875" Y="5.103" />
+        <Point X="7.875" Y="6.324" />
         <Point X="7.875" Y="6.5" />
         <Point X="10" Y="6.5" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAQACAQCICAAIAAAAAQACgAEAhAAAAAAEAAAAgg=</HashCode>
+      <HashCode>AAQAQAQACAQCIiAAIAAAAIQACgAEAhAAAAAAEAAAAgg=</HashCode>
       <FileName>DataBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
