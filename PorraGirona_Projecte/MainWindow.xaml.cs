@@ -20,6 +20,9 @@ namespace PorraGirona_Projecte
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool admin = false;
+        private bool authorized = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,7 +43,26 @@ namespace PorraGirona_Projecte
 
         private void btn_LogIn_Click(object sender, RoutedEventArgs e)
         {
+            //TEST
+            if (txtBox_User_LogIn.Text == "root")
+            {
+                authorized = true;
+                admin = true;
+            }
+            //END TEST
 
+            LeaderBoard ld = new LeaderBoard();
+            if (authorized)
+            {
+                if (admin)
+                {
+                    ld.Owner = this;
+                    this.Hide();
+                    ld.ShowDialog();
+                }
+            }
+            else
+                MessageBox.Show("ERROR: Credencials incorrectes");
         }
     }
 }
