@@ -54,57 +54,6 @@ namespace PorraGirona_Projecte
             }
         }
 
-        public int AddPollMember(string name, string surname, string address, string nif, string email)
-        {
-            string command = $"INSERT INTO PollMember(null,'{name}','{surname}','{address}','{nif}','{email}')";
-
-            bool dataIsValid = true;
-
-            //PER SI VOLEM FER COMPROVACIONS A LA CLASSE BASE DE DADES
-
-            //Comprovacions amb Regex o el mètode de validació que acabem fent servir..
-            /* if (false) //nom
-            {
-                dataIsValid = false; 
-            }
-            else if (false) //cognom
-            {
-                dataIsValid = false;
-            }   
-            else if (false) //adreça
-            {
-                dataIsValid = false; 
-            }
-            else if (false) //nif
-            {
-                dataIsValid = false; 
-            }
-            else if (false) //email
-            {
-                dataIsValid = false; 
-            }
-            */
-
-            if (dataIsValid)
-            {
-                try
-                {
-                    MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
-
-                    oCommand.ExecuteNonQuery();
-
-                    //Retornem true si s'ha pogut fer l'insert correctament.
-                    //D'aquesta manera, el formulari xaml sabrà si el penyista s'ha afegit o no.
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-            }
-            else
-        }
-
         //
 
         //DANIIL
