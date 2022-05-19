@@ -8,8 +8,26 @@ namespace PorraGirona_Projecte
 {
     public class ScoreHistory
     {
-        private int pollMemberId { get; set; }
-        private int shownMatchId { get; set; }
-        private int score { get; set; }
+        private PollMember pollMember;
+        private ShownMatch shownMatch;
+        private int score;
+
+        public ScoreHistory() { }
+
+        public PollMember PollMember
+        {
+            get { return pollMember; }
+            set { pollMember = value; }
+        }
+        public ShownMatch ShownMatch
+        {
+            set {  shownMatch = value; }
+            get { return shownMatch; }
+        }
+        public int Score
+        {
+            get { return score; }
+            set { score = value; }
+        }
     }
 }

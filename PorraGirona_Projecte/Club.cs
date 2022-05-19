@@ -7,11 +7,44 @@ namespace PorraGirona_Projecte
 {
     public class Club
     {
-        private string name { get; set; }
-        private string shortName { get; set; }
-        private int id { get; set; }
-        private int championshipId { get; set; }
-        private string stadium { get; set; }
-        private string locality { get; set; }
+        private string name;
+        private string shortName;
+        private int id;
+        private Championship championship;
+        private string stadium;
+        private string locality;
+
+        public Club() { }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public string ShortName
+        {
+            get { return shortName; }
+            set { shortName = value; }
+        }
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        public Championship Championship
+        {
+            get {  return championship; }
+            set {  championship = value;}
+        }
+        public string Stadium
+        {
+            get { return stadium; }
+            set { stadium = value; }
+        }
+        public string Locality
+        {
+            get { return locality; }
+            set { locality = value; }
+        }
     }
 }

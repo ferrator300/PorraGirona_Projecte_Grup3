@@ -8,8 +8,26 @@ namespace PorraGirona_Projecte
 {
     public class MatchResult
     {
-        private int shownMatchId { get; set; }
-        private int localGoals { get; set; }
-        private int awayGoals { get; set; }
+        private ShownMatch shownMatch;
+        private int localGoals;
+        private int awayGoals;
+
+        public MatchResult() { }
+
+        public ShownMatch ShownMatch
+        {
+            get { return shownMatch; }
+            set {  shownMatch = value; }
+        }
+        public int LocalGoals
+        {
+            get { return localGoals; }
+            set { localGoals = value; }
+        }
+        public int AwayGoals
+        {
+            get {  return awayGoals; }
+            set { awayGoals = value; }
+        }
     }
 }

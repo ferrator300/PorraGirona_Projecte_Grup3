@@ -7,11 +7,32 @@ namespace PorraGirona_Projecte
 {
     public class Championship
     {
-        private string name { get; set; }
-        private int id { get; set; }
-        private int division { get; set; }
-        private int clubSlots { get; set; }
+        private string name;
+        private int id;
+        private int division;
+        private int clubSlots;
 
+        public Championship() { }
 
+        public string Name 
+        {  
+            get {  return name; }
+            set { name = value; }
+        }
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        public int Division
+        {
+            get { return division; }
+            set { division = value; }
+        }
+        public int ClubSlots
+        {
+            get { return clubSlots; }
+            set { clubSlots = value; }
+        }
     }
 }

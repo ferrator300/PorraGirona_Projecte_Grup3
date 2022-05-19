@@ -7,14 +7,14 @@ namespace PorraGirona_Projecte
 {
     public class PollMember
     {
-        private bool admin { get; set; }
+        private bool admin;
         private int id;
-        private string name { get; set; }
-        private string surname { get; set; }
+        private string name;
+        private string surname;
         private string address { get; set; }
         private string nif { get; set; }
         private string email { get; set; }
-        private string globalScore { get; set; }
+        private int globalScore { get; set; }
 
         public PollMember()
         {
@@ -55,7 +55,7 @@ namespace PorraGirona_Projecte
             get { return email; }
             set { email = value; }
         }
-        public string GlobalScore
+        public int GlobalScore
         {
             get { return globalScore; }
             set { globalScore = value; }

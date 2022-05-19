@@ -191,7 +191,7 @@ namespace PorraGirona_Projecte
         /// string[5] --> Email
         /// string[6] --> GlobalScore
         /// </returns>
-        public List<PollMember> SelectPollMember()
+        public PollMember SelectPollMember()
         {
             string command = $"SELECT * FROM PollMember;";
             
@@ -213,7 +213,7 @@ namespace PorraGirona_Projecte
                     newPollMember.Address = lines.GetString(3);
                     newPollMember.Nif = lines.GetString(4);
                     newPollMember.Email = lines.GetString(5);
-                    newPollMember.GlobalScore = lines.GetInt32(6).ToString();
+                    newPollMember.GlobalScore = lines.GetInt32(6);
 
                     output.Add(newPollMember);
                 }

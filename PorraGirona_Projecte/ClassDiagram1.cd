@@ -33,21 +33,14 @@
   <Class Name="PorraGirona_Projecte.PollMember">
     <Position X="10" Y="5.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>gAAAAAAAAAAAAEAAAAAAAgCAAAAEAAAAAAgAAAAAAAE=</HashCode>
+      <HashCode>AAACAAAAACCAAAAggAAEAQQABAMEAAACAAAAAgAAAgI=</HashCode>
       <FileName>PollMember.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PorraGirona_Projecte.DataBase">
     <Position X="6.75" Y="1.5" Width="2.5" />
-    <AssociationLine Name="PollMember" Type="PorraGirona_Projecte.PollMember" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="7.875" Y="6.324" />
-        <Point X="7.875" Y="6.5" />
-        <Point X="10" Y="6.5" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAQAQAQACAQCIiAAIAAAAIQACgAEAhAAAAAAEAAAAgg=</HashCode>
+      <HashCode>AAQAYYwAWAQCMiIAYCAAAIQZCoBEAhAAAABAEAAAAgw=</HashCode>
       <FileName>DataBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -58,26 +51,25 @@
   <Class Name="PorraGirona_Projecte.Club">
     <Position X="12.5" Y="1.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABBAAABAAAAAAAAAAQAAAAAAACAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAIAAAACAAAQAgAAEAIQAAACEAAAAAgA=</HashCode>
       <FileName>Club.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PorraGirona_Projecte.ShownMatch">
     <Position X="10" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAMAAAAACCAAAAAAAAAAAAAAAAAAAACAAAECAAAAgA=</HashCode>
+      <HashCode>AAACAIAAACCAAAAgAAAAAAAABAAAAAQAAAAAAAAAAgA=</HashCode>
       <FileName>ShownMatch.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Championship" />
       <Property Name="LocalClub" />
       <Property Name="AwayClub" />
     </ShowAsAssociation>
   </Class>
   <Class Name="PorraGirona_Projecte.Championship">
-    <Position X="10" Y="3.75" Width="1.5" />
+    <Position X="9.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAEAQAABAEAAAAAIAAAACAAgA=</HashCode>
       <FileName>Championship.cs</FileName>
     </TypeIdentifier>
   </Class>

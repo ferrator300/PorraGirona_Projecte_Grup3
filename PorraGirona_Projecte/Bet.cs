@@ -8,10 +8,38 @@ namespace PorraGirona_Projecte
 {
     public class Bet
     {
-        private int pollMemberId { get; set; }
-        private int shownMatchId { get; set; }
-        private DateTime submissionTime { get; set; }
-        private int localGoals { get; set; }
-        private int awayGoals { get; set; }
+        private PollMember pollMember;
+        private ShownMatch shownMatch;
+        private DateTime submissionTime;
+        private int localGoals;
+        private int awayGoals;
+
+        public Bet() { }
+
+        public PollMember PollMember
+        {
+            get { return pollMember; }
+            set { pollMember = value; }
+        }
+        public ShownMatch ShownMatch
+        {
+            get { return shownMatchId; }
+            set { shownMatchId = value; }
+        }
+        public DateTime SubmissionTime
+        {
+            get { return submissionTime; }
+            set { submissionTime = value; }
+        }
+        public int LocalGoals
+        {
+            get { return localGoals; }
+            set { localGoals = value; }
+        }
+        public int AwayGoals
+        {
+            get { return awayGoals; }
+            set { awayGoals = value; }
+        }
     }
 }
