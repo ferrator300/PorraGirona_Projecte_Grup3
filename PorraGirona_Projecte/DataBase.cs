@@ -514,8 +514,6 @@ namespace PorraGirona_Projecte
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            string[] output = new string[7];
-
             MySqlDataReader lines = oCommand.ExecuteReader();
 
 
@@ -556,20 +554,18 @@ namespace PorraGirona_Projecte
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            string[] output = new string[4];
-
             MySqlDataReader lines = oCommand.ExecuteReader();
 
             try
             {
-                ShownMatch newSownMatch = new ShownMatch();
-                newSownMatch.Id = lines.GetInt32(0);
-                newSownMatch.DateTime = lines.GetDateTime(1);
-                newSownMatch.LocalClub =(Club)lines.GetValue(2);
-                newSownMatch.AwayClub = (Club)lines.GetValue(3);
+                ShownMatch newShownMatch = new ShownMatch();
+                newShownMatch.Id = lines.GetInt32(0);
+                newShownMatch.DateTime = lines.GetDateTime(1);
+                newShownMatch.LocalClub =(Club)lines.GetValue(2);
+                newShownMatch.AwayClub = (Club)lines.GetValue(3);
 
                 lines.Close();
-                return newSownMatch;
+                return newShownMatch;
             }
             catch (Exception ex)
             {
@@ -591,8 +587,6 @@ namespace PorraGirona_Projecte
             string command = $"SELECT * FROM ScoreHistory WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
-
-            string[] output = new string[3];
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
@@ -629,8 +623,6 @@ namespace PorraGirona_Projecte
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            string[] output = new string[5];
-
             MySqlDataReader lines = oCommand.ExecuteReader();
 
             try
@@ -664,8 +656,6 @@ namespace PorraGirona_Projecte
             string command = $"SELECT * FROM ScoreHistory WHERE ShownMatch_ID = {shownMatchId};";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
-
-            string[] output = new string[3];
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
@@ -703,8 +693,6 @@ namespace PorraGirona_Projecte
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            string[] output = new string[6];
-
             MySqlDataReader lines = oCommand.ExecuteReader();
 
             try
@@ -741,8 +729,6 @@ namespace PorraGirona_Projecte
             string command = $"SELECT * FROM Championship WHERE Championship_ID = {championshipId};";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
-
-            string[] output = new string[4];
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
