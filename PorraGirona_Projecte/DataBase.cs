@@ -506,7 +506,7 @@ namespace PorraGirona_Projecte
         /// string[4] --> Nif
         /// string[5] --> Email
         /// </returns>
-        public string[] GetOnePollMember(string pollMemberId)
+        public PollMember GetOnePollMember(string pollMemberId)
         {
             string command = $"SELECT * FROM PollMember WHERE PollMember_ID = {pollMemberId};";
 
@@ -516,18 +516,21 @@ namespace PorraGirona_Projecte
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
+
             try
             {
-                output[0] = lines.GetInt32(0).ToString();
-                output[1] = lines.GetString(1);
-                output[2] = lines.GetString(2);
-                output[3] = lines.GetString(3);
-                output[4] = lines.GetString(4);
-                output[5] = lines.GetString(5);
-                output[6] = lines.GetInt32(6).ToString();
+                PollMember newPollMember = new PollMember();
+
+                newPollMember.Id = lines.GetInt32(0);
+                newPollMember.Name = lines.GetString(1);
+                newPollMember.Surname = lines.GetString(2);
+                newPollMember.Address = lines.GetString(3);
+                newPollMember.Nif = lines.GetString(4);
+                newPollMember.Email = lines.GetString(5);
+                newPollMember.GlobalScore = lines.GetInt32(6);
                 
                 lines.Close();
-                return output;
+                return newPollMember;
             }
             catch (Exception ex)
             {
@@ -545,7 +548,7 @@ namespace PorraGirona_Projecte
         /// string[2] --> LocalClub_ID
         /// string[3] --> AwayClub_ID
         /// </returns>
-        public string[] GetOneShownMatch(string shownMatchId)
+        public ShownMatch GetOneShownMatch(string shownMatchId)
         {
             string command = $"SELECT * FROM ShownMatch WHERE ShownMatch_ID = {shownMatchId};";
 
@@ -557,13 +560,14 @@ namespace PorraGirona_Projecte
 
             try
             {
-                output[0] = lines.GetInt32(0).ToString();
-                output[1] = lines.GetDateTime(1).ToString();
-                output[2] = lines.GetInt32(2).ToString();
-                output[3] = lines.GetInt32(3).ToString();
+                ShownMatch newSownMatch = new ShownMatch();
+                newSownMatch.Id = lines.GetInt32(0);
+                newSownMatch.DateTime = lines.GetDateTime(1);
+                newSownMatch.LocalClub =(Club)lines.GetValue(2);
+                newSownMatch.AwayClub = (Club)lines.GetValue(3);
 
                 lines.Close();
-                return output;
+                return newSownMatch;
             }
             catch (Exception ex)
             {
@@ -580,7 +584,7 @@ namespace PorraGirona_Projecte
         /// string[1] --> ShownMatch_ID
         /// string[2] --> Score
         /// </returns>
-        public string[] GetOneScoreHistory(string pollMemberId, string shownMatchId)
+        public ScoreHistory GetOneScoreHistory(string pollMemberId, string shownMatchId)
         {
             string command = $"SELECT * FROM ScoreHistory WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
 
@@ -592,12 +596,13 @@ namespace PorraGirona_Projecte
 
             try
             {
-                output[0] = lines.GetInt32(0).ToString();
-                output[1] = lines.GetInt32(1).ToString();
-                output[2] = lines.GetInt32(2).ToString();
+                ScoreHistory newScoreHistory = new ScoreHistory();
+                newScoreHistory.PollMember = (PollMember) lines.GetValue(0);
+                newScoreHistory.ShownMatch = (ShownMatch) lines.GetValue(1);
+                newScoreHistory.Score = lines.GetInt32(2);
 
                 lines.Close();
-                return output;
+                return newScoreHistory;
             }
             catch (Exception ex)
             {
@@ -616,7 +621,7 @@ namespace PorraGirona_Projecte
         /// string[3] --> Local_goals
         /// string[4] --> Away_goals
         /// </returns>
-        public string[] GetOneBet(string pollMemberId, string shownMatchId)
+        public Bet GetOneBet(string pollMemberId, string shownMatchId)
         {
             string command = $"SELECT * FROM Bet WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
 
@@ -627,15 +632,15 @@ namespace PorraGirona_Projecte
             MySqlDataReader lines = oCommand.ExecuteReader();
 
             try
-        {
-                output[0] = lines.GetInt32(0).ToString();
-                output[1] = lines.GetInt32(1).ToString();
-                output[2] = lines.GetDateTime(2).ToString();
-                output[3] = lines.GetInt32(3).ToString();
-                output[4] = lines.GetInt32(4).ToString();
+        {       Bet newBet = new Bet();
+                newBet.PollMember = (PollMember) lines.GetValue(0);
+                newBet.ShownMatch = (ShownMatch) lines.GetValue(1);
+                newBet.SubmissionTime = lines.GetDateTime(2);
+                newBet.LocalGoals = lines.GetInt32(3);
+                newBet.AwayGoals = lines.GetInt32(4);
 
                 lines.Close();
-                return output;
+                return newBet;
             }
             catch (Exception ex)
             {
@@ -652,7 +657,7 @@ namespace PorraGirona_Projecte
         /// string[1] --> Local_goals
         /// string[2] --> Away_Goals
         /// </returns>
-        public string[] GetOneMatchResult(string shownMatchId)
+        public MatchResult GetOneMatchResult(string shownMatchId)
         {
             string command = $"SELECT * FROM ScoreHistory WHERE ShownMatch_ID = {shownMatchId};";
 
@@ -664,12 +669,13 @@ namespace PorraGirona_Projecte
 
             try
             {
-                output[0] = lines.GetInt32(0).ToString();
-                output[1] = lines.GetInt32(1).ToString();
-                output[2] = lines.GetInt32(2).ToString();
+                MatchResult newMatchResult = new MatchResult();
+                newMatchResult.ShownMatch = (ShownMatch) lines.GetValue(0);
+                newMatchResult.LocalGoals = lines.GetInt32(1);
+                newMatchResult.AwayGoals = lines.GetInt32(2);
 
                 lines.Close();
-                return output;
+                return newMatchResult;
             }
             catch (Exception ex)
             {
@@ -689,7 +695,7 @@ namespace PorraGirona_Projecte
         /// string[4] --> Stadium
         /// string[5] --> Locality
         /// </returns>
-        public string[] GetOneClub(string clubId)
+        public Club GetOneClub(string clubId)
         {
             string command = $"SELECT * FROM Club WHERE Club_ID = {clubId};";
 
@@ -701,15 +707,16 @@ namespace PorraGirona_Projecte
 
             try
             {
-                output[0] = lines.GetString(0);
-                output[1] = lines.GetString(1);
-                output[2] = lines.GetInt32(2).ToString();
-                output[3] = lines.GetInt32(3).ToString();
-                output[3] = lines.GetString(4);
-                output[5] = lines.GetString(5);
+                Club newClub = new Club();
+                newClub.Name = lines.GetString(0);
+                newClub.ShortName = lines.GetString(1);
+                newClub.Id = lines.GetInt32(2);
+                newClub.Championship = (Championship) lines.GetValue(3);
+                newClub.Stadium = lines.GetString(4);
+                newClub.Locality = lines.GetString(5);
 
                 lines.Close();
-                return output;
+                return newClub;
             }
             catch (Exception ex)
             {
@@ -727,7 +734,7 @@ namespace PorraGirona_Projecte
         /// string[2] --> Division
         /// string[3] --> Club_Slots
         /// </returns>
-        public string[] GetOneChampionship(string championshipId)
+        public Championship GetOneChampionship(string championshipId)
         {
             string command = $"SELECT * FROM Championship WHERE Championship_ID = {championshipId};";
 
@@ -739,13 +746,14 @@ namespace PorraGirona_Projecte
 
             try
             {
-                output[0] = lines.GetString(0);
-                output[1] = lines.GetInt32(1).ToString();
-                output[2] = lines.GetInt32(2).ToString();
-                output[3] = lines.GetInt32(3).ToString();
+                Championship newChampionShip = new Championship();
+                newChampionShip.Name = lines.GetString(0);
+                newChampionShip.Id = lines.GetInt32(1);
+                newChampionShip.Division = lines.GetInt32(2);
+                newChampionShip.ClubSlots = lines.GetInt32(3);
 
                 lines.Close();
-                return output;
+                return newChampionShip;
             }
             catch (Exception ex)
             {

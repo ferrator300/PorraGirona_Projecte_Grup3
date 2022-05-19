@@ -13,9 +13,6 @@
       <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="DataBase" />
-    </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="PorraGirona_Projecte.Properties.Resources" Collapsed="true">
@@ -36,17 +33,6 @@
       <HashCode>AAACAAAAACCAAAAggAAEAQQABAMEAAACAAAAAgAAAgI=</HashCode>
       <FileName>PollMember.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="PorraGirona_Projecte.DataBase">
-    <Position X="6.75" Y="1.5" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAYYwAWAQCMiIAYCAAAIQZCoBEAhAAAABAEAAAAgw=</HashCode>
-      <FileName>DataBase.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="ShownMatch" />
-      <Property Name="PollMember" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="PorraGirona_Projecte.Club">
     <Position X="12.5" Y="1.5" Width="2" />
@@ -72,6 +58,17 @@
       <HashCode>AAACAAAAAAAAAAAAAAAAEAQAABAEAAAAAIAAAACAAgA=</HashCode>
       <FileName>Championship.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="PorraGirona_Projecte.DataBase">
+    <Position X="6.75" Y="1.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAYYwAWAQCMiIAYCAAAIQZCoBEAhAAAABAEAAAAgw=</HashCode>
+      <FileName>DataBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ShownMatch" />
+      <Property Name="PollMember" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
