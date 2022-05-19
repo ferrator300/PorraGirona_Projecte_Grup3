@@ -238,13 +238,13 @@ namespace PorraGirona_Projecte
         /// string[2] --> LocalClub_ID
         /// string[3] --> AwayClub_ID
         /// </returns>
-        public List<string[]> SelectShownMatch() 
+        public List<ShownMatch> SelectShownMatch() 
         {
             string command = $"SELECT * FROM ShownMatch;";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            List<string[]> output = new List<string[]>();
+            List<ShownMatch> output = new List<ShownMatch>();
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
@@ -252,13 +252,14 @@ namespace PorraGirona_Projecte
             {
                 while (lines.Read())
                 {
-                    string[] str = new string[4];
-                    str[0] = lines.GetInt32(0).ToString();
-                    str[1] = lines.GetDateTime(1).ToString();
-                    str[2] = lines.GetInt32(2).ToString();
-                    str[3] = lines.GetInt32(3).ToString();
+                    ShownMatch newShownMatch = new ShownMatch();
+                    
+                    newShownMatch.Id = lines.GetInt32(0);
+                    newShownMatch.DateTime = lines.GetDateTime(1);
+                    newShownMatch.LocalClub = (Club)lines.GetValue(2);
+                    newShownMatch.AwayClub = (Club)lines.GetValue(3);
 
-                    output.Add(str);
+                    output.Add(newShownMatch);
                 }
 
                 lines.Close();
@@ -280,13 +281,13 @@ namespace PorraGirona_Projecte
         /// string[1] --> ShownMatch_ID
         /// string[2] --> Score
         /// </returns>
-        public List<string[]> SelectScoreHistory()
+        public List<ScoreHistory> SelectScoreHistory()
         {
             string command = $"SELECT * FROM ScoreHistory;";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            List<string[]> output = new List<string[]>();
+            List<ScoreHistory> output = new List<ScoreHistory>();
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
@@ -294,13 +295,14 @@ namespace PorraGirona_Projecte
             {
                 while (lines.Read())
                 {
-                    string[] str = new string[3];
-                    str[0] = lines.GetInt32(0).ToString();
-                    str[1] = lines.GetInt32(1).ToString();
-                    str[2] = lines.GetInt32(2).ToString();
+                    ScoreHistory newScoreHistory = new ScoreHistory();
+                    
+                    newScoreHistory.PollMember = (PollMember)lines.GetValue(0);
+                    newScoreHistory.ShownMatch = (ShownMatch)lines.GetValue(1);
+                    newScoreHistory.Score = lines.GetInt32(2);
 
 
-                    output.Add(str);
+                    output.Add(newScoreHistory);
                 }
 
                 lines.Close();
@@ -324,13 +326,13 @@ namespace PorraGirona_Projecte
         /// string[3] --> Local_goals
         /// string[4] --> Away_goals
         /// </returns>
-        public List<string[]> SelectBet()
+        public List<Bet> SelectBet()
         {
             string command = $"SELECT * FROM Bet;";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            List<string[]> output = new List<string[]>();
+            List<Bet> output = new List<Bet>();
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
@@ -338,15 +340,15 @@ namespace PorraGirona_Projecte
             {
                 while (lines.Read())
                 {
-                    string[] str = new string[5];
-                    str[0] = lines.GetInt32(0).ToString();
-                    str[1] = lines.GetInt32(1).ToString();
-                    str[2] = lines.GetDateTime(2).ToString();
-                    str[3] = lines.GetInt32(3).ToString();
-                    str[4] = lines.GetInt32(4).ToString();
+                    Bet newBet = new Bet();
+                    newBet.PollMember = (PollMember)lines.GetValue(0);
+                    newBet.ShownMatch = (ShownMatch)lines.GetValue(1);
+                    newBet.SubmissionTime = lines.GetDateTime(2);
+                    newBet.LocalGoals = lines.GetInt32(3);
+                    newBet.AwayGoals = lines.GetInt32(4);
 
 
-                    output.Add(str);
+                    output.Add(newBet);
                 }
 
                 lines.Close();
@@ -368,13 +370,13 @@ namespace PorraGirona_Projecte
         /// string[1] --> Local_goals
         /// string[2] --> Away_Goals
         /// </returns>
-        public List<string[]> SelectMatchResult()
+        public List<MatchResult> SelectMatchResult()
         {
             string command = $"SELECT * FROM ScoreHistory;";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            List<string[]> output = new List<string[]>();
+            List<MatchResult> output = new List<MatchResult>();
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
@@ -382,13 +384,13 @@ namespace PorraGirona_Projecte
             {
                 while (lines.Read())
                 {
-                    string[] str = new string[3];
-                    str[0] = lines.GetInt32(0).ToString();
-                    str[1] = lines.GetInt32(1).ToString();
-                    str[2] = lines.GetInt32(2).ToString();
+                    MatchResult newMatchResult = new MatchResult();
+                    newMatchResult.ShownMatch = (ShownMatch)lines.GetValue(0);
+                    newMatchResult.LocalGoals = lines.GetInt32(1);
+                    newMatchResult.AwayGoals = lines.GetInt32(2);
 
 
-                    output.Add(str);
+                    output.Add(newMatchResult);
                 }
 
                 lines.Close();
@@ -413,13 +415,13 @@ namespace PorraGirona_Projecte
         /// string[4] --> Stadium
         /// string[5] --> Locality
         /// </returns>
-        public List<string[]> SelectClub()
+        public List<Club> SelectClub()
         {
             string command = $"SELECT * FROM Club;";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            List<string[]> output = new List<string[]>();
+            List<Club> output = new List<Club>();
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
@@ -427,16 +429,16 @@ namespace PorraGirona_Projecte
             {
                 while (lines.Read())
                 {
-                    string[] str = new string[6];
-                    str[0] = lines.GetString(0);
-                    str[1] = lines.GetString(1);
-                    str[2] = lines.GetInt32(2).ToString();
-                    str[3] = lines.GetInt32(3).ToString();
-                    str[3] = lines.GetString(4);
-                    str[5] = lines.GetString(5);
+                    Club newClub = new Club();
+                    newClub.Name = lines.GetString(0);
+                    newClub.ShortName = lines.GetString(1);
+                    newClub.Id = lines.GetInt32(2);
+                    newClub.Championship = (Championship)lines.GetValue(3);
+                    newClub.Stadium = lines.GetString(4);
+                    newClub.Locality = lines.GetString(5);
 
 
-                    output.Add(str);
+                    output.Add(newClub);
                 }
 
                 lines.Close();
@@ -459,13 +461,13 @@ namespace PorraGirona_Projecte
         /// string[2] --> Division
         /// string[3] --> Club_Slots
         /// </returns>
-        public List<string[]> SelectChampionship()
+        public List<Championship> SelectChampionship()
         {
             string command = $"SELECT * FROM Championship;";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            List<string[]> output = new List<string[]>();
+            List<Championship> output = new List<Championship>();
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
@@ -473,13 +475,13 @@ namespace PorraGirona_Projecte
             {
                 while (lines.Read())
                 {
-                    string[] str = new string[4];
-                    str[0] = lines.GetString(0);
-                    str[1] = lines.GetInt32(1).ToString();
-                    str[2] = lines.GetInt32(2).ToString();
-                    str[3] = lines.GetInt32(3).ToString();
+                    Championship newChampionship = new Championship();
+                    newChampionship.Name = lines.GetString(0);
+                    newChampionship.Id = lines.GetInt32(1);
+                    newChampionship.Division = lines.GetInt32(2);
+                    newChampionship.ClubSlots = lines.GetInt32(3);
 
-                    output.Add(str);
+                    output.Add(newChampionship);
                 }
 
                 lines.Close();
@@ -909,6 +911,11 @@ namespace PorraGirona_Projecte
 
             return score;
         }
+        #endregion
+
+        //Mètodes d'updates a la base de dades
+        #region
+
         #endregion
 
         // ----- FINAL MIQUEL
