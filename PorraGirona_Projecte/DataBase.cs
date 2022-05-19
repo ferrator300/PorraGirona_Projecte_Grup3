@@ -923,7 +923,79 @@ namespace PorraGirona_Projecte
 
         //Mètodes d'updates a la base de dades
         #region
+        public bool ModMember(int id, string name, string surname, string address, string nif, string email)
+        {
+            string command = $"UPDATE PollMember " +
+                    $"SET Name = '{name}', " +
+                    $"Surname = '{surname}', " +
+                    $"Address = '{address}', " +
+                    $"Nif = '{nif}', " +
+                    $"Email = '{email}' " +
+                $"WHERE PollMember_ID = {id};";
 
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                //Retornem true si s'ha pogut fer l'update correctament.
+                //D'aquesta manera, el formulari xaml sabrà si el penyista s'ha afegit o no.
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool ModClub(int id, string name, string shortName, int championshipId, string stadium, string locality)
+        {
+            string command = $"UPDATE Club " +
+                    $"SET Name = '{name}', " +
+                    $"Short_Name = '{shortName}', " +
+                    $"Championship_ID = '{championshipId}', " +
+                    $"Stadium = '{stadium}', " +
+                    $"Locality = '{locality}' " +
+                $"WHERE Club_ID = {id};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                //Retornem true si s'ha pogut fer l'update correctament.
+                //D'aquesta manera, el formulari xaml sabrà si el penyista s'ha afegit o no.
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool ModShownMatch(int id, DateTime dateTime, int localClubId, int awayClubId)
+        {
+            string command = $"UPDATE ShownMatch " +
+                    $"SET Match_dateTime = '{dateTime}', " +
+                    $"LocalClub_ID = '{localClubId}', " +
+                    $"AwayClub_ID = '{awayClubId}' " +
+                $"WHERE ShownMatch_ID = {id};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                //Retornem true si s'ha pogut fer l'update correctament.
+                //D'aquesta manera, el formulari xaml sabrà si el penyista s'ha afegit o no.
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         #endregion
 
         // ----- FINAL MIQUEL
