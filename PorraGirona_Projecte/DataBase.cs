@@ -191,7 +191,7 @@ namespace PorraGirona_Projecte
         /// string[5] --> Email
         /// string[6] --> GlobalScore
         /// </returns>
-        public PollMember SelectPollMember()
+        public List<PollMember> SelectPollMember()
         {
             string command = $"SELECT * FROM PollMember;";
             
