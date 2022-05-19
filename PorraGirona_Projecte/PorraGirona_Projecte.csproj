@@ -79,6 +79,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Championship.cs" />
+    <Compile Include="Bet.cs" />
+    <Compile Include="MatchResult.cs" />
+    <Compile Include="Password.cs" />
+    <Compile Include="ScoreHistory.cs" />
     <Compile Include="ShownMatch.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

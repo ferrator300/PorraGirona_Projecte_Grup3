@@ -189,14 +189,15 @@ namespace PorraGirona_Projecte
         /// string[3] --> Address
         /// string[4] --> Nif
         /// string[5] --> Email
+        /// string[6] --> GlobalScore
         /// </returns>
-        public List<string[]> SelectPollMember()
+        public List<PollMember> SelectPollMember()
         {
             string command = $"SELECT * FROM PollMember;";
             
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
-            List<string[]> output = new List<string[]>();
+            List<PollMember> output = new List<PollMember>();
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
@@ -204,15 +205,17 @@ namespace PorraGirona_Projecte
             {
                 while (lines.Read())
                 {
-                    string[] str = new string[7];
-                    str[0] = lines.GetInt32(0).ToString();
-                    str[1] = lines.GetString(1);
-                    str[2] = lines.GetString(2);
-                    str[3] = lines.GetString(3);
-                    str[4] = lines.GetString(4);
-                    str[5] = lines.GetString(5);
-                    str[6] = lines.GetInt32(6).ToString();
-                    output.Add(str);
+                    PollMember newPollMember = new PollMember();
+
+                    newPollMember.Id = lines.GetInt32(0);
+                    newPollMember.Name = lines.GetString(1);
+                    newPollMember.Surname = lines.GetString(2);
+                    newPollMember.Address = lines.GetString(3);
+                    newPollMember.Nif = lines.GetString(4);
+                    newPollMember.Email = lines.GetString(5);
+                    newPollMember.GlobalScore = lines.GetInt32(6).ToString();
+
+                    output.Add(newPollMember);
                 }
 
                 lines.Close();
@@ -839,6 +842,73 @@ namespace PorraGirona_Projecte
         //        return null;
         //    }
         //}
+        #endregion
+
+        //Operation Methods
+        #region
+        public int GetPoints(int pollMemberId, string[] matchResult)
+        {
+            int score = 0;
+
+            int shownMatchId;
+
+            int finalLocalGoals;
+            int finalAwayGoals;
+
+            int betLocalGoals;
+            int betAwayGoals;
+
+            try
+            {
+                shownMatchId = Convert.ToInt32(matchResult[0]);
+                finalLocalGoals = Convert.ToInt32(matchResult[1]);
+                finalAwayGoals = Convert.ToInt32(matchResult[2]);
+            }
+            catch
+            {
+                return -1;
+            }
+
+            string command = $"SELECT Local_goals, Away_goals" +
+                                $"FROM Bet WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
+
+            MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+            MySqlDataReader lines = oCommand.ExecuteReader();
+
+            betLocalGoals = lines.GetInt32(3);
+            betAwayGoals = lines.GetInt32(4);
+
+            while (lines.Read())
+            {
+                //matchResult[1] = localGoals       matchResult[2] = awayGoals
+                if (finalLocalGoals == betLocalGoals && finalAwayGoals == betAwayGoals)
+                {
+                    score = 5;
+                }
+                else
+                {
+                    if (finalLocalGoals == betLocalGoals || finalAwayGoals == betAwayGoals)
+                    {
+                        score = 4;
+                    }
+                    else if ((betLocalGoals > betAwayGoals && finalLocalGoals > finalAwayGoals) ||
+                        (betLocalGoals < betAwayGoals && finalLocalGoals < finalAwayGoals) ||
+                        betLocalGoals == betAwayGoals && finalLocalGoals == finalAwayGoals)
+                    {
+                        score = 3;
+                    }
+                    else if (Math.Abs(betLocalGoals - finalLocalGoals) == 1 && Math.Abs(betAwayGoals - finalAwayGoals) == 1)
+                    {
+                        score = 2;
+                    }
+                    else
+                        score = 1;
+                }
+            }
+
+            return score;
+        }
         #endregion
 
         // ----- FINAL MIQUEL
