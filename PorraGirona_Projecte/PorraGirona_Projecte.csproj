@@ -83,7 +83,14 @@
     <Compile Include="MatchResult.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="ScoreHistory.cs" />
+    <Compile Include="LeaderBoard.xaml.cs">
+      <DependentUpon>LeaderBoard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ShownMatch.cs" />
+    <Page Include="LeaderBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -127,6 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="fc_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
