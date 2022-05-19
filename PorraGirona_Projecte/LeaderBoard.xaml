@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PorraGirona_Projecte"
         mc:Ignorable="d"
-        Title="Administració" Height="450" Width="800" ResizeMode="NoResize" Icon="/fc_logo.png" SizeToContent="WidthAndHeight">
+        Title="Administració" Height="450" Width="800" ResizeMode="NoResize" Icon="/fc_logo.png" SizeToContent="WidthAndHeight" Closing="app_close">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="199*"/>
@@ -23,26 +23,30 @@
         <Button x:Name="btn_members" Content="MEMBRES" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_members_Click"/>
         <Button x:Name="btn_clubs" Content="CLUBS" HorizontalAlignment="Left" Margin="25,163,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_clubs_Click"/>
         <Button x:Name="btn_matches" Content="JORNADES" HorizontalAlignment="Left" Margin="25,217,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_matches_Click" RenderTransformOrigin="0.496,0.563"/>
-        <DataGrid x:Name="dataGrid_leaderBoard" d:ItemsSource="{d:SampleData ItemCount=0}" Margin="204,69,32,29" SelectionChanged="DataGrid_SelectionChanged" ColumnWidth="Auto" AutoGenerateColumns="False" BorderBrush="Black" Background="#FFC9C9C9" HorizontalScrollBarVisibility="Auto" Visibility="Hidden">
+        <DataGrid x:Name="dataGrid_leaderBoard" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="204,69,32,29" SelectionChanged="DataGrid_SelectionChanged" ColumnWidth="Auto" AutoGenerateColumns="False" BorderBrush="Black" Background="#FFC9C9C9" HorizontalScrollBarVisibility="Auto" Visibility="Hidden" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="560">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="MEMBRE"/>
-                <DataGridTextColumn Header="PUNTS"/>
-                <DataGridTextColumn Header="JORNADA"/>
+                <DataGridTextColumn Header="MEMBRE" Width="*" IsReadOnly="true"/>
+                <DataGridTextColumn Header="PUNTS" IsReadOnly="true"/>
+                <DataGridTextColumn Width="*">
+                    <DataGridTextColumn.Header>
+                        <ComboBox x:Name="comboBox_leaderboard_jornada" Width="240" HorizontalAlignment="Center" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="lable_title" Content="LLISTA PUNTUACIONS" HorizontalAlignment="Left" Margin="204,29,0,0" VerticalAlignment="Top" Width="560" Foreground="White" FontWeight="Bold" FontSize="18" Height="36" Background="#FF303030"/>
         <Button x:Name="btn_LogOut" Content="DESCONECTAR" HorizontalAlignment="Left" Margin="25,383,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_LogOut_Click" RenderTransformOrigin="0.496,0.563"/>
         <Button x:Name="btn_TestMode" Content="MODE TEST" HorizontalAlignment="Left" Margin="25,336,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_clubs_Click" RenderTransformOrigin="0.496,0.563"/>
         <Button x:Name="btn_matches_Copy" Content="log" HorizontalAlignment="Left" Margin="764,0,0,0" VerticalAlignment="Top" Height="24" Width="36" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_clubs_Click" RenderTransformOrigin="0.496,0.563" Grid.ColumnSpan="2"/>
-        <TabControl x:Name="tab_members" Margin="204,71,32,67">
+        <TabControl x:Name="tab_members" Margin="204,71,32,67" Visibility="Visible">
             <TabItem Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID"/>
-                            <DataGridTextColumn Header="DNI"/>
-                            <DataGridTextColumn Header="Nom Cognom"/>
-                            <DataGridTextColumn Header="Email"/>
+                            <DataGridTextColumn Header="ID" Width="40"/>
+                            <DataGridTextColumn Header="DNI" Width="100"/>
+                            <DataGridTextColumn Header="Nom Cognom" Width="*"/>
+                            <DataGridTextColumn Header="Email" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -53,16 +57,33 @@
                     <TextBox x:Name="txtBox_member_name_add" HorizontalAlignment="Left" Margin="83,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
                     <TextBox x:Name="txtBox_member_email_add" HorizontalAlignment="Left" Margin="83,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
                     <Label x:Name="label_dni_add" Content="DNI" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="46,58,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
-                    <Label x:Name="label_dni_add_Copy" Content="Nom" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="32,94,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="46"/>
-                    <Label x:Name="label_dni_add_Copy1" Content="Email" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
-                    <Label x:Name="label_dni_add_Copy2" Content="Cognom" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="268,94,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
-                    <Label x:Name="label_dni_add_Copy3" Content="Adreça" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="268,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
+                    <Label x:Name="label_name_add" Content="Nom" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="32,94,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="46"/>
+                    <Label x:Name="label_email_add" Content="Email" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
+                    <Label x:Name="label_surname_add" Content="Cognom" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="268,94,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
+                    <Label x:Name="label_address_add" Content="Adreça" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="268,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
                     <TextBox x:Name="txtBox_member_surname_add" HorizontalAlignment="Left" Margin="341,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
                     <TextBox x:Name="txtBox_member_adr_add" HorizontalAlignment="Left" Margin="341,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
-                    <Button x:Name="btn_add_member" Content="Afegir" HorizontalAlignment="Center" Margin="0,204,0,0" VerticalAlignment="Top" Height="29" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal"/>
+                    <Button x:Name="btn_add_member" Content="Afegir" HorizontalAlignment="Center" Margin="0,204,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" Foreground="Black" Background="White" BorderThickness="0,0,0,0"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="MODIFICAR"/>
+            <TabItem Header="MODIFICAR">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox x:Name="txtBox_member_dni_add1" HorizontalAlignment="Left" Margin="185,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="65" MaxLength="9" Text="000000000"/>
+                    <TextBox x:Name="txtBox_member_name_add1" HorizontalAlignment="Left" Margin="83,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
+                    <TextBox x:Name="txtBox_member_email_add1" HorizontalAlignment="Left" Margin="83,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
+                    <Label x:Name="label_dni_mod" Content="DNI" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="148,58,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
+                    <Label x:Name="label_name_mod" Content="Nom" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="32,94,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="46"/>
+                    <Label x:Name="label_email_mod" Content="Email" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
+                    <Label x:Name="label_surname_mod" Content="Cognom" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="268,94,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
+                    <Label x:Name="label_address_mod" Content="Adreça" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="268,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
+                    <TextBox x:Name="txtBox_member_surname_mod" HorizontalAlignment="Left" Margin="341,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
+                    <TextBox x:Name="txtBox_member_adr_mod" HorizontalAlignment="Left" Margin="341,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
+                    <Button x:Name="btn_mod_member" Content="Guardar" HorizontalAlignment="Left" Margin="126,194,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" BorderThickness="0,0,0,0" Background="White"/>
+                    <Label x:Name="label_id_mod" Content="ID&#xD;&#xA;" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="55,58,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
+                    <ComboBox x:Name="comboBox_id_mod" HorizontalAlignment="Left" Margin="83,60,0,0" VerticalAlignment="Top" Width="50"/>
+                    <Button x:Name="btn_delete_member"  Content="Eliminar" HorizontalAlignment="Left" Margin="300,194,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" Background="#FFD6001E" Foreground="White" BorderThickness="0,0,0,0"/>
+                </Grid>
+            </TabItem>
         </TabControl>
 
     </Grid>

@@ -40,7 +40,6 @@ namespace PorraGirona_Projecte
         {
 
         }
-
         private void btn_LogIn_Click(object sender, RoutedEventArgs e)
         {
             //TEST
@@ -63,6 +62,11 @@ namespace PorraGirona_Projecte
             }
             else
                 MessageBox.Show("ERROR: Credencials incorrectes");
+        }
+
+        private void login_close(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

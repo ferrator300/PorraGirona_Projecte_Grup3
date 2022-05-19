@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PorraGirona_Projecte"
         mc:Ignorable="d"
-        Title="LogIn" Height="612" Width="470" Icon="/fc_logo.png" WindowStartupLocation="CenterScreen">
+        Title="LogIn" Height="612" Width="470" Icon="/fc_logo.png" WindowStartupLocation="CenterScreen" Closing="login_close">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="47*"/>

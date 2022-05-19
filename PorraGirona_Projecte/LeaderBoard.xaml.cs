@@ -69,6 +69,9 @@ namespace PorraGirona_Projecte
             lable_title.Content = title;
             dataGrid_leaderBoard.Visibility = Visibility.Hidden;
             tab_members.Visibility = Visibility.Hidden;
+
+            dataGrid_leaderBoard.IsEnabled = false;
+            tab_members.IsEnabled = false;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -79,6 +82,11 @@ namespace PorraGirona_Projecte
         private void btn_add_member_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void app_close(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
