@@ -23,8 +23,8 @@ namespace PorraGirona_Projecte
         }
         public ShownMatch ShownMatch
         {
-            get { return shownMatchId; }
-            set { shownMatchId = value; }
+            get { return shownMatch; }
+            set { shownMatch = value; }
         }
         public DateTime SubmissionTime
         {
