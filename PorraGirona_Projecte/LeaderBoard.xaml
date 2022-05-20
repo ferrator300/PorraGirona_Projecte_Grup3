@@ -24,12 +24,15 @@
         <Button x:Name="btn_clubs" Content="CLUBS" HorizontalAlignment="Left" Margin="25,163,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_clubs_Click"/>
         <Button x:Name="btn_matches" Content="JORNADES" HorizontalAlignment="Left" Margin="25,217,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_matches_Click" RenderTransformOrigin="0.496,0.563"/>
         <DataGrid x:Name="dataGrid_leaderBoard" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="204,69,32,29" SelectionChanged="DataGrid_SelectionChanged" ColumnWidth="Auto" AutoGenerateColumns="False" BorderBrush="Black" Background="#FFC9C9C9" HorizontalScrollBarVisibility="Auto" Visibility="Hidden" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="560">
+            <DataGrid.DataContext>
+                <local:PollMember/>
+            </DataGrid.DataContext>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="MEMBRE" Width="*" IsReadOnly="true"/>
-                <DataGridTextColumn Header="PUNTS" IsReadOnly="true"/>
+                <DataGridTextColumn Header="MEMBRE" Binding="{Binding Name}" Width="*" IsReadOnly="true"/>
+                <DataGridTextColumn Header="PUNTS" Binding="{Binding GlobalScore}" IsReadOnly="true"/>
                 <DataGridTextColumn Width="*">
                     <DataGridTextColumn.Header>
-                        <ComboBox x:Name="comboBox_leaderboard_jornada" Width="240" HorizontalAlignment="Center" />
+                        <ComboBox x:Name="comboBox_leaderboard_jornada"  Width="240" HorizontalAlignment="Center" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
             </DataGrid.Columns>
@@ -41,12 +44,15 @@
         <TabControl x:Name="tab_members" Margin="204,71,32,67" Visibility="Hidden" Width="560">
             <TabItem x:Name="tab_list_member" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False">
+                    <DataGrid x:Name="dataGrid_members" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False">
+                        <DataGrid.DataContext>
+                            <local:PollMember/>
+                        </DataGrid.DataContext>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Width="40"/>
-                            <DataGridTextColumn Header="DNI" Width="100"/>
-                            <DataGridTextColumn Header="Nom Cognom" Width="*"/>
-                            <DataGridTextColumn Header="Email" Width="*"/>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="40"/>
+                            <DataGridTextColumn Header="DNI" Binding="{Binding Nif}" Width="100"/>
+                            <DataGridTextColumn Header="Nom Cognom" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

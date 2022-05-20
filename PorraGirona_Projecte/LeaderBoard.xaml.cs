@@ -22,6 +22,16 @@ namespace PorraGirona_Projecte
         public LeaderBoard()
         {
             InitializeComponent();
+            RefreshData();
+        }
+
+        //REFRESH DATA
+
+        private void RefreshData()
+        {
+            PollMember pl = new PollMember();
+            dataGrid_leaderBoard.ItemsSource = pl.GetPollMembers();
+            dataGrid_members.ItemsSource = pl.GetPollMembers();
         }
 
         //LEADERBOARD
