@@ -29,5 +29,15 @@ namespace PorraGirona_Projecte
             get { return score; }
             set { score = value; }
         }
+
+        public List<ScoreHistory> GetScoreHistories()
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            List<ScoreHistory> output = database.SelectScoreHistory();
+            database.Disconnect();
+
+            return output;
+        }
     }
 }

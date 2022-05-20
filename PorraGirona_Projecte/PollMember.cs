@@ -11,15 +11,15 @@ namespace PorraGirona_Projecte
         private int id;
         private string name;
         private string surname;
-        private string address { get; set; }
-        private string nif { get; set; }
-        private string email { get; set; }
-        private int globalScore { get; set; }
+        private string address;
+        private string nif;
+        private string email;
+        private int globalScore;
 
-        public PollMember()
-        {
-
-        }
+        //public PollMember()
+        //{
+        //    DataBase database = new DataBase();
+        //}
         public int Id
         {
             get { return id; }
@@ -61,5 +61,14 @@ namespace PorraGirona_Projecte
             set { globalScore = value; }
         }
 
+        public List<PollMember> GetPollMembers()
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            List<PollMember> output = database.SelectPollMember();
+            database.Disconnect();
+
+            return output;
+        }
     }
 }

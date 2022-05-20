@@ -12,8 +12,8 @@ namespace PorraGirona_Projecte
     {
 
         //Miquel
-        protected string mariaDBConnectionString = "server=localhost;userid=root;database=footballpoll;port3306;";
-        MySqlConnection mdbConnection = null;
+        protected string mariaDBConnectionString = "server=localhost;userid=root;database=footballpoll;port=3306;";
+        MySqlConnection mdbConnection;
 
         public DataBase()
         {
@@ -508,7 +508,7 @@ namespace PorraGirona_Projecte
         /// string[4] --> Nif
         /// string[5] --> Email
         /// </returns>
-        public PollMember GetOnePollMember(string pollMemberId)
+        public PollMember GetOnePollMember(int pollMemberId)
         {
             string command = $"SELECT * FROM PollMember WHERE PollMember_ID = {pollMemberId};";
 
@@ -516,19 +516,20 @@ namespace PorraGirona_Projecte
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
-
             try
             {
                 PollMember newPollMember = new PollMember();
+                while (lines.Read())
+                {
+                    newPollMember.Id = lines.GetInt32(0);
+                    newPollMember.Name = lines.GetString(1);
+                    newPollMember.Surname = lines.GetString(2);
+                    newPollMember.Address = lines.GetString(3);
+                    newPollMember.Nif = lines.GetString(4);
+                    newPollMember.Email = lines.GetString(5);
+                    newPollMember.GlobalScore = lines.GetInt32(6);
+                }
 
-                newPollMember.Id = lines.GetInt32(0);
-                newPollMember.Name = lines.GetString(1);
-                newPollMember.Surname = lines.GetString(2);
-                newPollMember.Address = lines.GetString(3);
-                newPollMember.Nif = lines.GetString(4);
-                newPollMember.Email = lines.GetString(5);
-                newPollMember.GlobalScore = lines.GetInt32(6);
-                
                 lines.Close();
                 return newPollMember;
             }
@@ -557,12 +558,15 @@ namespace PorraGirona_Projecte
             MySqlDataReader lines = oCommand.ExecuteReader();
 
             try
-            {
+            {   
                 ShownMatch newShownMatch = new ShownMatch();
-                newShownMatch.Id = lines.GetInt32(0);
-                newShownMatch.DateTime = lines.GetDateTime(1);
-                newShownMatch.LocalClub =(Club)lines.GetValue(2);
-                newShownMatch.AwayClub = (Club)lines.GetValue(3);
+                while (lines.Read())
+                {                    
+                    newShownMatch.Id = lines.GetInt32(0);
+                    newShownMatch.DateTime = lines.GetDateTime(1);
+                    newShownMatch.LocalClub = (Club)lines.GetValue(2);
+                    newShownMatch.AwayClub = (Club)lines.GetValue(3);
+                }
 
                 lines.Close();
                 return newShownMatch;
@@ -593,9 +597,12 @@ namespace PorraGirona_Projecte
             try
             {
                 ScoreHistory newScoreHistory = new ScoreHistory();
-                newScoreHistory.PollMember = (PollMember) lines.GetValue(0);
-                newScoreHistory.ShownMatch = (ShownMatch) lines.GetValue(1);
-                newScoreHistory.Score = lines.GetInt32(2);
+                while (lines.Read())
+                {
+                    newScoreHistory.PollMember = (PollMember)lines.GetValue(0);
+                    newScoreHistory.ShownMatch = (ShownMatch)lines.GetValue(1);
+                    newScoreHistory.Score = lines.GetInt32(2);
+                }
 
                 lines.Close();
                 return newScoreHistory;
@@ -627,11 +634,14 @@ namespace PorraGirona_Projecte
 
             try
         {       Bet newBet = new Bet();
-                newBet.PollMember = (PollMember) lines.GetValue(0);
-                newBet.ShownMatch = (ShownMatch) lines.GetValue(1);
-                newBet.SubmissionTime = lines.GetDateTime(2);
-                newBet.LocalGoals = lines.GetInt32(3);
-                newBet.AwayGoals = lines.GetInt32(4);
+                while (lines.Read())
+                {
+                    newBet.PollMember = (PollMember)lines.GetValue(0);
+                    newBet.ShownMatch = (ShownMatch)lines.GetValue(1);
+                    newBet.SubmissionTime = lines.GetDateTime(2);
+                    newBet.LocalGoals = lines.GetInt32(3);
+                    newBet.AwayGoals = lines.GetInt32(4);
+                }
 
                 lines.Close();
                 return newBet;
@@ -662,9 +672,12 @@ namespace PorraGirona_Projecte
             try
             {
                 MatchResult newMatchResult = new MatchResult();
-                newMatchResult.ShownMatch = (ShownMatch) lines.GetValue(0);
-                newMatchResult.LocalGoals = lines.GetInt32(1);
-                newMatchResult.AwayGoals = lines.GetInt32(2);
+                while (lines.Read())
+                {
+                    newMatchResult.ShownMatch = (ShownMatch)lines.GetValue(0);
+                    newMatchResult.LocalGoals = lines.GetInt32(1);
+                    newMatchResult.AwayGoals = lines.GetInt32(2);
+                }
 
                 lines.Close();
                 return newMatchResult;
@@ -698,12 +711,16 @@ namespace PorraGirona_Projecte
             try
             {
                 Club newClub = new Club();
-                newClub.Name = lines.GetString(0);
-                newClub.ShortName = lines.GetString(1);
-                newClub.Id = lines.GetInt32(2);
-                newClub.Championship = (Championship) lines.GetValue(3);
-                newClub.Stadium = lines.GetString(4);
-                newClub.Locality = lines.GetString(5);
+
+                while (lines.Read())
+                {
+                    newClub.Name = lines.GetString(0);
+                    newClub.ShortName = lines.GetString(1);
+                    newClub.Id = lines.GetInt32(2);
+                    newClub.Championship = (Championship)lines.GetValue(3);
+                    newClub.Stadium = lines.GetString(4);
+                    newClub.Locality = lines.GetString(5);
+                }
 
                 lines.Close();
                 return newClub;
@@ -735,10 +752,14 @@ namespace PorraGirona_Projecte
             try
             {
                 Championship newChampionShip = new Championship();
-                newChampionShip.Name = lines.GetString(0);
-                newChampionShip.Id = lines.GetInt32(1);
-                newChampionShip.Division = lines.GetInt32(2);
-                newChampionShip.ClubSlots = lines.GetInt32(3);
+
+                while (lines.Read())
+                {
+                    newChampionShip.Name = lines.GetString(0);
+                    newChampionShip.Id = lines.GetInt32(1);
+                    newChampionShip.Division = lines.GetInt32(2);
+                    newChampionShip.ClubSlots = lines.GetInt32(3);
+                }
 
                 lines.Close();
                 return newChampionShip;
