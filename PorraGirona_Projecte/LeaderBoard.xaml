@@ -92,7 +92,7 @@
         <TabControl x:Name="tab_clubs" Margin="204,71,32,67" Visibility="Visible" Width="560">
             <TabItem x:Name="tab_list_clubs" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False">
+                    <DataGrid x:Name="dataGrid_clubs" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Width="40"/>
                             <DataGridTextColumn Header="Name" Width="100"/>
