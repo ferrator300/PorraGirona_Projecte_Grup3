@@ -111,5 +111,11 @@ namespace PorraGirona_Projecte
         {
 
         }
+
+        //BOTÓ APOSTAR
+        private void btn_poll_click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
