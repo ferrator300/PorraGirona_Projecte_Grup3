@@ -36,10 +36,6 @@ namespace PorraGirona_Projecte
             }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
         private void btn_LogIn_Click(object sender, RoutedEventArgs e)
         {
             //TEST

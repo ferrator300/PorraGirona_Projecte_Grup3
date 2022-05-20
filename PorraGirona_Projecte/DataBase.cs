@@ -12,7 +12,7 @@ namespace PorraGirona_Projecte
     {
 
         //Miquel
-        protected string mariaDBConnectionString = "server=localhost;userid=root;database=footballpoll;port3306";
+        protected string mariaDBConnectionString = "server=localhost;userid=root;database=footballpoll;port3306;";
         MySqlConnection mdbConnection = null;
 
         public DataBase()
