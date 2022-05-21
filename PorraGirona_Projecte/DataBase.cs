@@ -115,7 +115,7 @@ namespace PorraGirona_Projecte
             }
         }
 
-        public bool AddShownMatch(string dateTime, string localClubId, string awayClubId)
+        public bool AddShownMatch(DateTime dateTime, int localClubId, int awayClubId)
         {
             string command = $"INSERT INTO ShownMatch values(null,{dateTime},{localClubId},{awayClubId});";
 
@@ -145,7 +145,7 @@ namespace PorraGirona_Projecte
             }
         }
 
-        public bool AddClub(string name, string shortName, string championshipId, string stadium, string locality)
+        public bool AddClub(string name, string shortName, int championshipId, string stadium, string locality)
         {
             string command = $"INSERT INTO Club values('{name}','{shortName}',null, {championshipId},'{stadium}','{locality}');";
 
@@ -170,6 +170,58 @@ namespace PorraGirona_Projecte
                 }
             }
             else
+            {
+                return false;
+            }
+        }
+
+        public bool AddBet(int pollMemberId, int shownMatchId, DateTime dateTime, int localGoals, int awayGoals)
+        {
+            string command = $"INSERT INTO Bet VALUES({pollMemberId}, {shownMatchId}, {dateTime}, {localGoals}, {awayGoals});";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool AddScoreHistory(int pollMemberId, int shownMatchId, int score)
+        {
+            string command = $"INSERT INTO ScoreHistory VALUES({pollMemberId}, {shownMatchId}, {score};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool AddMatchResult(int shownMatchId, int localGoals, int awayGoals)
+        {
+            string command = $"INSERT INTO MatchResult VALUES({shownMatchId}, {localGoals}, {awayGoals};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
             {
                 return false;
             }
@@ -493,7 +545,37 @@ namespace PorraGirona_Projecte
             }
 
         }
-#endregion
+        public List<Password> SelectPassword()
+        {
+            string command = $"SELECT * FROM Password;";
+
+            MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+            List<Password> output = new List<Password>();
+
+            MySqlDataReader lines = oCommand.ExecuteReader();
+
+            try
+            {
+                while (lines.Read())
+                {
+                    Password newPassword = new Password();
+                    newPassword.PollMember = (PollMember)lines.GetValue(0);
+                    newPassword.SecurityKey = lines.GetString(1);
+
+                    output.Add(newPassword);
+                }
+
+                lines.Close();
+                return output;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+        #endregion
 
         //Methods to get just one row from the database
         #region
@@ -549,7 +631,7 @@ namespace PorraGirona_Projecte
         /// string[2] --> LocalClub_ID
         /// string[3] --> AwayClub_ID
         /// </returns>
-        public ShownMatch GetOneShownMatch(string shownMatchId)
+        public ShownMatch GetOneShownMatch(int shownMatchId)
         {
             string command = $"SELECT * FROM ShownMatch WHERE ShownMatch_ID = {shownMatchId};";
 
@@ -586,7 +668,7 @@ namespace PorraGirona_Projecte
         /// string[1] --> ShownMatch_ID
         /// string[2] --> Score
         /// </returns>
-        public ScoreHistory GetOneScoreHistory(string pollMemberId, string shownMatchId)
+        public ScoreHistory GetOneScoreHistory(int pollMemberId, int shownMatchId)
         {
             string command = $"SELECT * FROM ScoreHistory WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
 
@@ -624,7 +706,7 @@ namespace PorraGirona_Projecte
         /// string[3] --> Local_goals
         /// string[4] --> Away_goals
         /// </returns>
-        public Bet GetOneBet(string pollMemberId, string shownMatchId)
+        public Bet GetOneBet(int pollMemberId, int shownMatchId)
         {
             string command = $"SELECT * FROM Bet WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
 
@@ -661,7 +743,7 @@ namespace PorraGirona_Projecte
         /// string[1] --> Local_goals
         /// string[2] --> Away_Goals
         /// </returns>
-        public MatchResult GetOneMatchResult(string shownMatchId)
+        public MatchResult GetOneMatchResult(int shownMatchId)
         {
             string command = $"SELECT * FROM ScoreHistory WHERE ShownMatch_ID = {shownMatchId};";
 
@@ -700,7 +782,7 @@ namespace PorraGirona_Projecte
         /// string[4] --> Stadium
         /// string[5] --> Locality
         /// </returns>
-        public Club GetOneClub(string clubId)
+        public Club GetOneClub(int clubId)
         {
             string command = $"SELECT * FROM Club WHERE Club_ID = {clubId};";
 
@@ -741,7 +823,7 @@ namespace PorraGirona_Projecte
         /// string[2] --> Division
         /// string[3] --> Club_Slots
         /// </returns>
-        public Championship GetOneChampionship(string championshipId)
+        public Championship GetOneChampionship(int championshipId)
         {
             string command = $"SELECT * FROM Championship WHERE Championship_ID = {championshipId};";
 
@@ -770,8 +852,34 @@ namespace PorraGirona_Projecte
             }
 
         }
+        public Password GetOnePassword(int pollMemberId)
+        {
+            string command = $"SELECT * FROM Password WHERE PollMember_ID = {pollMemberId};";
 
-#endregion
+            MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+            MySqlDataReader lines = oCommand.ExecuteReader();
+
+            try
+            {
+                Password newPassword = new Password();
+
+                while (lines.Read())
+                {
+                    newPassword.PollMember = (PollMember)lines.GetValue(0);
+                    newPassword.SecurityKey = lines.GetString(1);
+                }
+
+                lines.Close();
+                return newPassword;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+        #endregion
 
         //Mètode per tornar una select d'una sola columna. (legacy)
         #region
@@ -996,6 +1104,191 @@ namespace PorraGirona_Projecte
 
                 //Retornem true si s'ha pogut fer l'update correctament.
                 //D'aquesta manera, el formulari xaml sabrà si el penyista s'ha afegit o no.
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool ModBet(int pollMemberId, int shownMatchId, int localGoals, int awayGoals)
+        {
+            string command = $"UPDATE Bet " +
+                    $"SET Local_goals = {localGoals}, " +
+                    $"Away_goals = {awayGoals} " +
+                $"WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool ModScoreHistory(int pollMemberId, int shownMatchId, int score)
+        {
+            string command = $"UPDATE ScoreHistory " +
+                    $"SET Score = {score} " +
+                $"WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool ModPassword(int pollMemberId, string securityKey)
+        {
+            string command = $"UPDATE Password" +
+                $"SET Password = {securityKey}" +
+                $"WHERE PollMember_ID = {pollMemberId};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool ModMatchResult(int shownMatchId, int localGoals, int awayGoals)
+        {
+            string command = $"UPDATE MatchResult" +
+                $"SET Local_goals = {localGoals}, " +
+                $"Away_goals = {awayGoals}" +
+                $"WHERE ShownMatch_ID = {shownMatchId};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        //Methods to remove one row from a database table.
+        #region
+        public bool RmMember(int id)
+        {
+            string command = $"DELETE FROM PollMember WHERE PollMember_ID = {id};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool RmClub(int id)
+        {
+            string command = $"DELETE FROM Club WHERE Club_ID = {id};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool RmShownMatch(int id)
+        {
+            string command = $"DELETE FROM ShownMatch WHERE ShownMatch_ID = {id};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool RmBet(int pollMemberId, int shownMatchId)
+        {
+            string command = $"DELETE FROM Bet WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool RmScoreHistory(int pollMemberId, int shownMatchId)
+        {
+            string command = $"DELETE FROM ScoreHistory WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool RmMatchResult(int shownMatchId)
+        {
+            string command = $"DELETE FROM MatchResult WHERE ShownMatch_ID = {shownMatchId};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
                 return true;
             }
             catch (Exception ex)

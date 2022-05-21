@@ -70,5 +70,87 @@ namespace PorraGirona_Projecte
             get {  return awayClub; }
             set { awayClub = value; }
         }
+
+        //SELECT
+        #region
+        public List<ShownMatch> GetAll()
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            List<ShownMatch> output = database.SelectShownMatch();
+            database.Disconnect();
+
+            return output;
+        }
+        public ShownMatch GetOne(int id)
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            ShownMatch output = database.GetOneShownMatch(id);
+            database.Disconnect();
+
+            return output;
+        }
+        #endregion
+
+        //INSERT
+        #region
+        public bool AddOne(DateTime dateTime, int localClubId, int awayClubId)
+        {
+            try
+            {
+                DataBase database = new DataBase();
+                database.Connect();
+                database.AddShownMatch(dateTime, localClubId, awayClubId);
+                database.Disconnect();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        //UPDATE
+        #region
+        public bool ModOne(int id, DateTime dateTime, int localClubId, int awayClubId)
+        {
+            try
+            {
+                DataBase database = new DataBase();
+                database.Connect();
+                database.ModShownMatch(id, dateTime, localClubId, awayClubId);
+                database.Disconnect();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        //DELETE
+        #region
+        public bool RemoveOne(int id)
+        {
+            try
+            {
+                DataBase database = new DataBase();
+                database.Connect();
+                database.RmShownMatch(id);
+                database.Disconnect();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }
