@@ -61,7 +61,9 @@ namespace PorraGirona_Projecte
             set { globalScore = value; }
         }
 
-        public List<PollMember> GetPollMembers()
+        //SELECT
+        #region
+        public List<PollMember> GetAll()
         {
             DataBase database = new DataBase();
             database.Connect();
@@ -70,5 +72,75 @@ namespace PorraGirona_Projecte
 
             return output;
         }
+        public PollMember GetOne(int id)
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            PollMember output = database.GetOnePollMember(id);
+            database.Disconnect();
+
+            return output;
+        }
+        #endregion
+
+        //INSERT
+        #region
+        public bool AddOne(string name, string surname, string address, string nif, string email)
+        {
+            try
+            {
+                DataBase database = new DataBase();
+                database.Connect();
+                database.AddPollMember(name, surname, address, nif, email);
+                database.Disconnect();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        //UPDATE
+        #region
+        public bool ModOne(int id, string name, string surname, string address, string nif, string email)
+        {
+            try
+            {
+                DataBase database = new DataBase();
+                database.Connect();
+                database.ModMember(id, name, surname, address, nif, email);
+                database.Disconnect();
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        //DELETE
+        #region
+        public bool RemoveOne(int id)
+        {
+            try
+            {
+                DataBase database = new DataBase();
+                database.Connect();
+                database.RmMember(id);
+                database.Disconnect();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }

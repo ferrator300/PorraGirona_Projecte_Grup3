@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PorraGirona_Projecte
 {
-    internal class Password
+    public class Password
     {
         private PollMember pollMember;
         private string securityKey;
@@ -23,5 +23,48 @@ namespace PorraGirona_Projecte
             get { return securityKey; }
             set { securityKey = value; }
         }
+
+        //SELECT
+        #region
+        public List<Password> GetAll()
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            List<Password> output = database.SelectPassword();
+            database.Disconnect();
+
+            return output;
+        }
+        public Password GetOne(int id)
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            Password output = database.GetOnePassword(id);
+            database.Disconnect();
+
+            return output;
+        }
+        #endregion
+
+        //UPDATE
+        #region
+        public bool ModOne(int pollMemberId, string securityKey)
+        {
+            try
+            {
+                DataBase database = new DataBase();
+                database.Connect();
+                database.ModPassword(pollMemberId, securityKey);
+                database.Disconnect();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
     }
 }
