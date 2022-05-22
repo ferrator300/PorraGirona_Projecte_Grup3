@@ -23,7 +23,7 @@
         <Button x:Name="btn_members" Content="MEMBRES" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_members_Click"/>
         <Button x:Name="btn_clubs" Content="CLUBS" HorizontalAlignment="Left" Margin="25,163,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_clubs_Click"/>
         <Button x:Name="btn_matches" Content="JORNADES" HorizontalAlignment="Left" Margin="25,217,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_matches_Click" RenderTransformOrigin="0.496,0.563"/>
-        <DataGrid x:Name="dataGrid_leaderBoard" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="204,69,32,29" ColumnWidth="Auto" AutoGenerateColumns="False" Visibility="Hidden" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="560">
+        <DataGrid x:Name="dataGrid_leaderBoard" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="204,69,32,29" ColumnWidth="Auto" AutoGenerateColumns="False" Visibility="Hidden" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="560" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
             <DataGrid.DataContext>
                 <local:PollMember/>
             </DataGrid.DataContext>
@@ -43,14 +43,14 @@
         <TabControl x:Name="tab_members" Margin="204,71,32,67" Visibility="Hidden" Width="560">
             <TabItem x:Name="tab_list_member" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="dataGrid_members" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False">
+                    <DataGrid x:Name="dataGrid_members" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
                         <DataGrid.DataContext>
                             <local:PollMember/>
                         </DataGrid.DataContext>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="40" IsReadOnly="True"/>
                             <DataGridTextColumn Header="DNI" Binding="{Binding Nif}" Width="100" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Nom Cognom" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Nom i Cognoms" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -95,15 +95,15 @@
                     <Button x:Name="btn_mod_member" Content="Guardar" HorizontalAlignment="Left" Margin="126,194,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_mod_member_Click" FontSize="14" FontWeight="Normal" BorderThickness="0,0,0,0" Background="White"/>
                     <Label x:Name="label_id_mod" Content="ID&#xD;&#xA;" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="55,58,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
                     <ComboBox x:Name="comboBox_id_mod" HorizontalAlignment="Left" Margin="83,60,0,0" VerticalAlignment="Top" Width="50" SelectionChanged="comboBox_id_member_mod">
-						<ComboBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<Rectangle Fill="{Binding Id}"/>
-									<TextBlock Text="{Binding Id}"/>
-								</StackPanel>
-							</DataTemplate>
-						</ComboBox.ItemTemplate>
-					</ComboBox>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Fill="{Binding Id}"/>
+                                    <TextBlock Text="{Binding Id}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <Button x:Name="btn_delete_member"  Content="Eliminar" HorizontalAlignment="Left" Margin="300,194,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_membre_delete_Click" FontSize="14" FontWeight="Normal" Background="#FFD6001E" Foreground="White" BorderThickness="0,0,0,0"/>
                     <Button x:Name="btn_restart_member_mod" HorizontalAlignment="Left" Margin="524,10,0,0" VerticalAlignment="Top" Click="btn_restart_member_mod_Click" Height="20" Width="20" BorderThickness="0,0,0,0">
                         <Button.Background>
@@ -116,13 +116,15 @@
         <TabControl x:Name="tab_clubs" Margin="204,71,32,67" Visibility="Visible" Width="560">
             <TabItem x:Name="tab_list_clubs" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="dataGrid_clubs" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" VerticalContentAlignment="Center">
+                    <DataGrid x:Name="dataGrid_clubs" d:ItemsSource="{d:SampleData ItemCount=5}" CanUserResizeColumns="False" CanUserReorderColumns="False" VerticalContentAlignment="Center" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
                         <DataGrid.DataContext>
                             <local:Club/>
                         </DataGrid.DataContext>
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Id}" Header="ID" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Name}" Header="Nom" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding ShortName}" Header="Alias" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Championship.Name}" Header="Lliga" Width="*" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Locality}" Header="Localitat" Width="*" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Stadium}" Header="Stadi" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
@@ -188,16 +190,16 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-					<ComboBox x:Name="comboBox_club_id_mod" HorizontalAlignment="Left" Margin="109,30,0,0" VerticalAlignment="Top" Width="45" Height="22" SelectionChanged="comboBox_club_mod_change">
-						<ComboBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<Rectangle Fill="{Binding Id}"/>
-									<TextBlock Text="{Binding Id}"/>
-								</StackPanel>
-							</DataTemplate>
-						</ComboBox.ItemTemplate>
-					</ComboBox>
+                    <ComboBox x:Name="comboBox_club_id_mod" HorizontalAlignment="Left" Margin="109,30,0,0" VerticalAlignment="Top" Width="45" Height="22" SelectionChanged="comboBox_club_mod_change">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Fill="{Binding Id}"/>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <Label x:Name="label_club_name_mod_Copy" Content="ID" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="58,28,0,0" VerticalAlignment="Top" Height="26" FontWeight="Bold" Width="46"/>
                     <Button x:Name="btn_club_delete" Content="Eliminar" HorizontalAlignment="Center" Margin="0,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_delete_club_Click" FontSize="14" FontWeight="Normal" Foreground="White" Background="#FFD6001E" BorderThickness="0,0,0,0" Grid.Column="1"/>
                     <Button x:Name="btn_restart_club_mod" Grid.Column="1" HorizontalAlignment="Left" Margin="370,10,0,0" VerticalAlignment="Top" Click="btn_restart_club_mod_Click" Height="20" Width="20" BorderThickness="0,0,0,0">
@@ -211,7 +213,7 @@
         <TabControl x:Name="tab_matchs" Margin="204,71,32,67" Visibility="Hidden" Width="560">
             <TabItem x:Name="tab_list_match" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="dataGrid_matchs" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" VerticalContentAlignment="Center">
+                    <DataGrid x:Name="dataGrid_matchs" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
                         <DataGrid.DataContext>
                             <local:ShownMatch/>
                         </DataGrid.DataContext>

@@ -58,6 +58,23 @@ namespace PorraGirona_Projecte
 
             return output;
         }
+        public List<Club> GetAll(bool databaseConnection)
+        {
+            DataBase database = new DataBase();
+            List<Club> output;
+            if (databaseConnection == true)
+            {
+                database.Connect();
+                output = database.SelectClub();
+                database.Disconnect();
+            }
+            else
+            {
+                output = database.SelectClub();
+            }
+
+            return output;
+        }
         public Club GetOne(int id)
         {
             DataBase database = new DataBase();

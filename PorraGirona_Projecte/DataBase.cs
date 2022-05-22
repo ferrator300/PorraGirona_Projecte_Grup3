@@ -226,6 +226,23 @@ namespace PorraGirona_Projecte
                 return false;
             }
         }
+        public bool AddChampionship(string name, int division, int clubSlots)
+        {
+            string command = $"INSERT INTO Championship VALUES('{name}', 1, {division}, {clubSlots};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         #endregion
 
         //Methods to get all rows from a table
@@ -305,11 +322,15 @@ namespace PorraGirona_Projecte
                 while (lines.Read())
                 {
                     ShownMatch newShownMatch = new ShownMatch();
+                    Club existingClub = new Club();
                     
                     newShownMatch.Id = lines.GetInt32(0);
                     newShownMatch.DateTime = lines.GetDateTime(1);
-                    newShownMatch.LocalClub = (Club)lines.GetValue(2);
-                    newShownMatch.AwayClub = (Club)lines.GetValue(3);
+                        
+                        //El valor que retorna la posició nº2 de shownMatch és la clau primària d'un club en format INT32. Per tant, 
+                        //Si volem obtenir-ne l'objecte de club relacionat cal que fem servir el mètode GetOne de la classe Club.
+                    newShownMatch.LocalClub = existingClub.GetOne(lines.GetInt32(2)); 
+                    newShownMatch.AwayClub = existingClub.GetOne(lines.GetInt32(2));
 
                     output.Add(newShownMatch);
                 }
@@ -348,9 +369,11 @@ namespace PorraGirona_Projecte
                 while (lines.Read())
                 {
                     ScoreHistory newScoreHistory = new ScoreHistory();
+                    ShownMatch existingShownMatch = new ShownMatch();
+                    PollMember existingPollMember = new PollMember();
                     
-                    newScoreHistory.PollMember = (PollMember)lines.GetValue(0);
-                    newScoreHistory.ShownMatch = (ShownMatch)lines.GetValue(1);
+                    newScoreHistory.PollMember = existingPollMember.GetOne(lines.GetInt32(0));
+                    newScoreHistory.ShownMatch = existingShownMatch.GetOne(lines.GetInt32(1));
                     newScoreHistory.Score = lines.GetInt32(2);
 
 
@@ -393,8 +416,11 @@ namespace PorraGirona_Projecte
                 while (lines.Read())
                 {
                     Bet newBet = new Bet();
-                    newBet.PollMember = (PollMember)lines.GetValue(0);
-                    newBet.ShownMatch = (ShownMatch)lines.GetValue(1);
+                    PollMember existingPollMember = new PollMember();
+                    ShownMatch existingShownMatch = new ShownMatch();
+
+                    newBet.PollMember = existingPollMember.GetOne(lines.GetInt32(0));
+                    newBet.ShownMatch = existingShownMatch.GetOne(lines.GetInt32(1));
                     newBet.SubmissionTime = lines.GetDateTime(2);
                     newBet.LocalGoals = lines.GetInt32(3);
                     newBet.AwayGoals = lines.GetInt32(4);
@@ -437,7 +463,9 @@ namespace PorraGirona_Projecte
                 while (lines.Read())
                 {
                     MatchResult newMatchResult = new MatchResult();
-                    newMatchResult.ShownMatch = (ShownMatch)lines.GetValue(0);
+                    ShownMatch existingShownMatch = new ShownMatch();
+
+                    newMatchResult.ShownMatch = existingShownMatch.GetOne(lines.GetInt32(0));
                     newMatchResult.LocalGoals = lines.GetInt32(1);
                     newMatchResult.AwayGoals = lines.GetInt32(2);
 
@@ -471,29 +499,31 @@ namespace PorraGirona_Projecte
         {
             string command = $"SELECT * FROM Club;";
 
-            MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+            MySqlCommand pCommand = new MySqlCommand(command, mdbConnection);
 
             List<Club> output = new List<Club>();
 
-            MySqlDataReader lines = oCommand.ExecuteReader();
+            MySqlDataReader pLines = pCommand.ExecuteReader();
 
             try
             {
-                while (lines.Read())
+                while (pLines.Read())
                 {
                     Club newClub = new Club();
-                    newClub.Name = lines.GetString(0);
-                    newClub.ShortName = lines.GetString(1);
-                    newClub.Id = lines.GetInt32(2);
-                    newClub.Championship = (Championship)lines.GetValue(3);
-                    newClub.Stadium = lines.GetString(4);
-                    newClub.Locality = lines.GetString(5);
+                    Championship existingChampionship = new Championship();
+
+                    newClub.Name = pLines.GetString(0);
+                    newClub.ShortName = pLines.GetString(1);
+                    newClub.Id = pLines.GetInt32(2);
+                    newClub.Championship = existingChampionship.GetOne(pLines.GetInt32(3));
+                    newClub.Stadium = pLines.GetString(4);
+                    newClub.Locality = pLines.GetString(5);
 
 
                     output.Add(newClub);
                 }
 
-                lines.Close();
+                pLines.Close();
                 return output;
             }
             catch (Exception ex)
@@ -528,6 +558,7 @@ namespace PorraGirona_Projecte
                 while (lines.Read())
                 {
                     Championship newChampionship = new Championship();
+
                     newChampionship.Name = lines.GetString(0);
                     newChampionship.Id = lines.GetInt32(1);
                     newChampionship.Division = lines.GetInt32(2);
@@ -560,7 +591,9 @@ namespace PorraGirona_Projecte
                 while (lines.Read())
                 {
                     Password newPassword = new Password();
-                    newPassword.PollMember = (PollMember)lines.GetValue(0);
+                    PollMember existingPollMember = new PollMember();
+
+                    newPassword.PollMember = existingPollMember.GetOne(lines.GetInt32(0));
                     newPassword.SecurityKey = lines.GetString(1);
 
                     output.Add(newPassword);
@@ -793,13 +826,14 @@ namespace PorraGirona_Projecte
             try
             {
                 Club newClub = new Club();
+                Championship existingChampionship = new Championship();
 
                 while (lines.Read())
                 {
                     newClub.Name = lines.GetString(0);
                     newClub.ShortName = lines.GetString(1);
                     newClub.Id = lines.GetInt32(2);
-                    newClub.Championship = (Championship)lines.GetValue(3);
+                    newClub.Championship = existingChampionship.GetOne(lines.GetInt32(3));
                     newClub.Stadium = lines.GetString(4);
                     newClub.Locality = lines.GetString(5);
                 }
@@ -1190,6 +1224,27 @@ namespace PorraGirona_Projecte
                 return false;
             }
         }
+        public bool ModChampionship(int id, string name, int division, int clubSlots)
+        {
+            string command = $"UPDATE Championship" +
+                $"SET Name = '{name}', " +
+                $"Division = {division}, " +
+                $"Club_Slots = {clubSlots} " +
+                $"WHERE Championship_ID = {id};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         #endregion
 
         //Methods to remove one row from a database table.
@@ -1296,6 +1351,23 @@ namespace PorraGirona_Projecte
                 return false;
             }
         }
+        public bool RmChampionship(int id)
+        {
+            string command = $"DELETE FROM Championship WHERE Championship_ID = {id};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         #endregion
 
         // ----- FINAL MIQUEL
@@ -1303,90 +1375,92 @@ namespace PorraGirona_Projecte
         //DANIIL
 
         //
-        public ShownMatch ShownMatch
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        #region
+        //public ShownMatch ShownMatch
+        //{
+        //    get => default;
+        //    set
+        //    {
+        //    }
+        //}
 
-        public PollMember PollMember
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        //public PollMember PollMember
+        //{
+        //    get => default;
+        //    set
+        //    {
+        //    }
+        //}
 
-        public void bd_AddShownMatch()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_AddShownMatch()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_ModShownMatch()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_ModShownMatch()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_RemoveShownMatch()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_RemoveShownMatch()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_AddPollMember()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_AddPollMember()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_ModPollMember()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_ModPollMember()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_RemovePollMember()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_RemovePollMember()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_AddClub()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_AddClub()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_ModClub()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_ModClub()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_RemoveClub()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_RemoveClub()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_CheckShownMatch()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_CheckShownMatch()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_CheckClub()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_CheckClub()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_CheckPollMember()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_CheckPollMember()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_Points()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_Points()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void bd_CalculatePoints()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void bd_CalculatePoints()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
+        #endregion
     }
 }

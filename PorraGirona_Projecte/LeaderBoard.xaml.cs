@@ -50,13 +50,17 @@ namespace PorraGirona_Projecte
 
             comboBox_id_mod.ItemsSource = pl.GetAll();
             comboBox_club_id_mod.ItemsSource = cl.GetAll();
-            //comboBox_club_champ_add.ItemsSource = ch.GetAll();
-            //comboBox_club_champ_mod.ItemsSource = ch.GetAll();
+            comboBox_club_champ_add.ItemsSource = ch.GetAll();
+            comboBox_club_champ_mod.ItemsSource = ch.GetAll();
             comboBox_leaderboard_jornada.ItemsSource = sm.GetAll();
             comboBox_match_away_add.ItemsSource = cl.GetAll();
             comboBox_match_away_mod.ItemsSource = cl.GetAll();
             comboBox_match_local_add.ItemsSource = cl.GetAll();
             comboBox_match_local_mod.ItemsSource= cl.GetAll();
+
+            comboBox_club_id_mod.ItemsSource = cl.GetAll();
+            comboBox_club_champ_mod.ItemsSource = ch.GetAll();
+
             
         }
 
@@ -420,7 +424,7 @@ namespace PorraGirona_Projecte
         private void RestoreMember()
         {
             PollMember pl = new PollMember();
-            pl.GetOne(comboBox_id_mod.SelectedIndex);
+            pl = pl.GetOne(((PollMember)comboBox_id_mod.SelectedItem).Id);
             txtBox_member_adr_mod.Text = pl.Address;
             txtBox_member_dni_mod.Text = pl.Nif;
             txtBox_member_adr_mod.Text = pl.Address;
@@ -431,11 +435,12 @@ namespace PorraGirona_Projecte
         private void RestoreClub()
         {
             Club cl = new Club();
-            cl.GetOne(comboBox_club_id_mod.SelectedIndex);
+            cl = cl.GetOne(((Club)comboBox_club_id_mod.SelectedItem).Id);
             txtBox_club_alias_mod.Text = cl.ShortName;
             txtBox_club_location_mod.Text = cl.Locality;
             txtBox_club_name_mod.Text = cl.Name;
             txtBox_club_stadium_mod.Text = cl.Stadium;
+            comboBox_club_champ_mod.SelectedItem = cl.Championship; //NO VA! Cal buscar com fer un canvi de camp en un combobox sense saber-ne l'índex.
         }
     }
 }
