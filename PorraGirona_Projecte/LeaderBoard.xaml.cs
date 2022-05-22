@@ -30,11 +30,11 @@ namespace PorraGirona_Projecte
             dataGrid_leaderBoard.IsEnabled = true;
 
         }
+
         /// <summary>
         /// Enllaçem les dades de la base de dades per mostrar la informació pertinent a cada apartat
         /// </summary>
         //REFRESH DATA
-
         private void RefreshData()
         {
             PollMember pl = new PollMember();
@@ -45,6 +45,7 @@ namespace PorraGirona_Projecte
             dataGrid_members.ItemsSource = pl.GetAll();
             dataGrid_clubs.ItemsSource = cl.GetAll();
             dataGrid_matchs.ItemsSource = sm.GetAll();
+            comboBox_id_mod.DataContext = cl.GetAll();
         }
 
         //LEADERBOARD
@@ -52,8 +53,7 @@ namespace PorraGirona_Projecte
         {
             ChangeTab("LLISTA PUNTUACIONS");
             dataGrid_leaderBoard.Visibility = Visibility.Visible;
-            dataGrid_leaderBoard.IsEnabled = true;
-            
+            dataGrid_leaderBoard.IsEnabled = true; 
         }
 
         //MEMBERS
@@ -89,10 +89,6 @@ namespace PorraGirona_Projecte
             mw.ShowDialog();
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
         /// <summary>
         /// Mètode per canviar entre apartats de l'aplicació, amaga tots els panells i els deshabilita.
         /// S'ha d'habilitar individualment cada panell quan es necessiti.
@@ -126,7 +122,169 @@ namespace PorraGirona_Projecte
         //BOTÓ AFEGIR MEMBRE
         private void btn_add_member_Click(object sender, RoutedEventArgs e)
         {
+            PollMember pl = new PollMember();
+            try
+            {
+                //Agafem els txtBox de l'apartat Afegir Membre
+                //Inserim un nou membre amb els contigunts de cada txtBox a la base de dades 
+                pl.AddOne(
+                    txtBox_member_name_add.Text,        //Nom
+                    txtBox_member_surname_add.Text,     //Cognom
+                    txtBox_member_adr_add.Text,         //Adreça 
+                    txtBox_member_dni_add.Text,         //Dni
+                    txtBox_member_email_add.Text        //Email
+                    );
+                RefreshData();
+                RestartFields("ma");
+                MessageBox.Show("MEMBRE AFEGIT CORRECTAMENT");
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"ERROR: Camp buit o no vàlid\n{ex.Message}");
+            }
+        }
+        //BOTÓ MOD MEMBRE
+        private void btn_mod_member_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"ERROR: Camp buit o no vàlid\n{ex.Message}");
+            }
+        }
+        //BOTÓ DELETE MEMBRE
+        private void btn_membre_delete_Click(object sender, RoutedEventArgs e)
+        {
+            PollMember pm = new PollMember();
+            try
+            {
+                //Agafem el valor del comboBox sleccionat
+                //Borrem el membre seleccionat de la base de dades
+                pm.RemoveOne(Convert.ToInt32(comboBox_id_mod.Text));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"ERROR: Camp buit o no vàlid\n{ex.Message}");
+            }
+        }
+
+        //BOTÓ AFEGIR CLUB
+        private void btn_add_club_Click(object sender, RoutedEventArgs e)
+        {
+            Club cl = new Club();
+            Championship championship = new Championship();
+            int id;
+            try
+            {
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //Buscar la Id del Championship seleccionat en el comboBox
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+                //Agafem els txtBox de l'apartat Afegir Club
+                //Inserim un nou club amb els contigunts de cada txtBox a la base de dades 
+                cl.AddOne(
+                    txtBox_club_name_add.Text,          //Nom 
+                    txtBox_club_alias_add.Text,         //Alias
+                    100, //TEST                         //Id Campionat
+                    txtBox_club_stadium_add.Text,       //Estadi
+                    txtBox_club_location_add.Text       //Localització
+                    );
+                RefreshData();
+                RestartFields("ca");
+                MessageBox.Show("CLUB AFEGIT CORRECTAMENT");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"ERROR: Camp buit o no vàlid\n{ex.Message}");
+            }
+        }
+        //BOTÓ MOD CLUB
+        private void btn_mod_club_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"ERROR: Camp buit o no vàlid\n{ex.Message}");
+            }
+        }
+        //BOTÓ DELETE CLUB
+        private void btn_delete_club_Click(object sender, RoutedEventArgs e)
+        {
+            Club cl = new Club();
+            try
+            {
+                //Agafem el valor del comboBox sleccionat
+                //Borrem el club seleccionat de la base de dades
+                cl.RemoveOne(Convert.ToInt32(comboBox_club_id_mod.Text));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"ERROR: Camp buit o no vàlid\n{ex.Message}");
+            }
+        }
+
+        //BOTÒ AFEGIR JORNADA
+        private void btn_add_match_Click(object sender, RoutedEventArgs e)
+        {
+            ShownMatch sm = new ShownMatch();
+            Club local = new Club();
+            Club away = new Club();
+
+            try
+            {
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //Buscar id club local a partir del nom en ComboBox
+                //Buscar id club visitant a partir del nom en ComboBox
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+                //Agafem els txtBox de l'apartat Afegir Jornada
+                //Inserim una nova jornada amb els contigunts de cada txtBox a la base de dades 
+                sm.AddOne(
+                    DateTime.Parse(calendar_match_add.Text),    //Data Jornada
+                    100, //TEST                                 //Id local
+                    200 //TEST                                  //ID visitant
+                    );
+                RefreshData();
+                RestartFields("ja");
+                MessageBox.Show("JORNADA AFEGIDA CORRECTAMENT");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"ERROR: Camp buit o no vàlid\n{ex.Message}");
+            }
+        }
+        //BOTÓ MOD JORNADA
+        private void btn_mod_match_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"ERROR: Camp buit o no vàlid\n{ex.Message}");
+            }
+        }
+        //BOTÓ DELETE JORNADA
+        private void btn_delete_match_Click(object sender, RoutedEventArgs e)
+        {
+            ShownMatch sm = new ShownMatch();
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"ERROR: Camp buit o no vàlid\n{ex.Message}");
+            }
         }
 
         //Mètode que s'aplica al tancar l'aplicació
@@ -142,15 +300,8 @@ namespace PorraGirona_Projecte
             tab_poll.Visibility = Visibility.Visible;
             tab_poll.IsEnabled = true;
         }
-        /*
-        Guia nomenclatura mètode reinciar camps
-        ma --> Member Add
-        mm --> Member Mod
-        ca --> Club Add
-        cm --> Club Mod
-        ja --> Jornada Add
-        jm --> Jornada Mod
-         */
+
+        //BOTONS REINICIAR CAMPS
         private void btn_restart_club_mod_Click(object sender, RoutedEventArgs e)
         {
             RestartFields("cm");
@@ -176,6 +327,16 @@ namespace PorraGirona_Projecte
             RestartFields("jm");
         }
 
+        /// <summary>
+        ///Guia nomenclatura mètode reinciar camps
+        ///<br>ma --> Member Add</br>
+        ///<br>mm --> Member Mod</br>
+        ///<br>ca --> Club Add</br>
+        ///<br>cm --> Club Mod</br>
+        ///<br>ja --> Jornada Add</br>
+        ///<br>jm --> Jornada Mod</br>
+        /// </summary>
+        /// <param name="camp">nomenclatura anterior</param>
         private void RestartFields(string camp)
         {
             if (camp == "ma")
@@ -189,7 +350,10 @@ namespace PorraGirona_Projecte
             }
             else if (camp == "mm")
             {
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 //Restablir a les dades de l'element seleccionat
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
                 txtBox_member_adr_mod.Text = "";
                 txtBox_member_dni_mod.Text = "";
                 txtBox_member_adr_mod.Text = "";
@@ -207,7 +371,10 @@ namespace PorraGirona_Projecte
             }
             else if (camp == "cm")
             {
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 //Restablir a les dades de l'element seleccionat
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
                 txtBox_club_alias_mod.Text = "";
                 txtBox_club_location_mod.Text = "";
                 txtBox_club_name_mod.Text = "";
@@ -222,7 +389,9 @@ namespace PorraGirona_Projecte
             }
             else if (camp == "jm")
             {
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 //Restablir a les dades de l'element seleccionat
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
             }
         }
     }

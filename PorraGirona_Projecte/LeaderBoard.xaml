@@ -92,10 +92,10 @@
                     <Label x:Name="label_address_mod" Content="Adreça" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="268,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
                     <TextBox x:Name="txtBox_member_surname_mod" HorizontalAlignment="Left" Margin="341,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
                     <TextBox x:Name="txtBox_member_adr_mod" HorizontalAlignment="Left" Margin="341,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
-                    <Button x:Name="btn_mod_member" Content="Guardar" HorizontalAlignment="Left" Margin="126,194,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" BorderThickness="0,0,0,0" Background="White"/>
+                    <Button x:Name="btn_mod_member" Content="Guardar" HorizontalAlignment="Left" Margin="126,194,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_mod_member_Click" FontSize="14" FontWeight="Normal" BorderThickness="0,0,0,0" Background="White"/>
                     <Label x:Name="label_id_mod" Content="ID&#xD;&#xA;" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="55,58,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
-                    <ComboBox x:Name="comboBox_id_mod" SelectedItem="{Binding PollMember}" HorizontalAlignment="Left" Margin="83,60,0,0" VerticalAlignment="Top" Width="50"/>
-                    <Button x:Name="btn_delete_member"  Content="Eliminar" HorizontalAlignment="Left" Margin="300,194,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" Background="#FFD6001E" Foreground="White" BorderThickness="0,0,0,0"/>
+                    <ComboBox x:Name="comboBox_id_mod" ItemsSource="{Binding PollMember}" DisplayMemberPath="Id" SelectedValuePath="Id" SelectedValue="{Binding PollMember}" HorizontalAlignment="Left" Margin="83,60,0,0" VerticalAlignment="Top" Width="50"></ComboBox>
+                    <Button x:Name="btn_delete_member"  Content="Eliminar" HorizontalAlignment="Left" Margin="300,194,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_membre_delete_Click" FontSize="14" FontWeight="Normal" Background="#FFD6001E" Foreground="White" BorderThickness="0,0,0,0"/>
                     <Button x:Name="btn_restart_member_mod" HorizontalAlignment="Left" Margin="524,10,0,0" VerticalAlignment="Top" Click="btn_restart_member_mod_Click" Height="20" Width="20" BorderThickness="0,0,0,0">
                         <Button.Background>
                             <ImageBrush ImageSource="/refresh.png"/>
@@ -131,7 +131,7 @@
                     <Label x:Name="label_club_champ_add" Content="Championship" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94"/>
                     <Label x:Name="label_club_alias_add" Content="Alias" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="117,63,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68" Grid.Column="1"/>
                     <TextBox x:Name="txtBox_club_alias_add" HorizontalAlignment="Left" Margin="190,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" Grid.Column="1"/>
-                    <Button x:Name="btn_club_add" Content="Afegir" HorizontalAlignment="Left" Margin="61,204,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" Foreground="Black" Background="White" BorderThickness="0,0,0,0" Grid.Column="1"/>
+                    <Button x:Name="btn_club_add" Content="Afegir" HorizontalAlignment="Left" Margin="61,204,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_club_Click" FontSize="14" FontWeight="Normal" Foreground="Black" Background="White" BorderThickness="0,0,0,0" Grid.Column="1"/>
                     <TextBox x:Name="txtBox_club_stadium_add" HorizontalAlignment="Left" Margin="109,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
                     <Label x:Name="label_club_stadium_add" Content="Stadium" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="36,96,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
                     <TextBox x:Name="txtBox_club_location_add" HorizontalAlignment="Left" Margin="190,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Grid.Column="1"/>
@@ -155,7 +155,7 @@
                     <Label x:Name="label_club_champ_mod" Content="Championship" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94"/>
                     <Label x:Name="label_club_alias_mod" Content="Alias" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="117,63,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68" Grid.Column="1"/>
                     <TextBox x:Name="txtBox_club_alias_mod" HorizontalAlignment="Left" Margin="190,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" Grid.Column="1"/>
-                    <Button x:Name="btn_club_mod" Content="Guardar" HorizontalAlignment="Left" Margin="145,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" Foreground="Black" Background="White" BorderThickness="0,0,0,0" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btn_club_mod" Content="Guardar" HorizontalAlignment="Left" Margin="145,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_mod_club_Click" FontSize="14" FontWeight="Normal" Foreground="Black" Background="White" BorderThickness="0,0,0,0" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="txtBox_club_stadium_mod" HorizontalAlignment="Left" Margin="109,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
                     <Label x:Name="label_club_stadium_mod" Content="Stadium" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="36,96,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
                     <TextBox x:Name="txtBox_club_location_mod" HorizontalAlignment="Left" Margin="190,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Grid.Column="1"/>
@@ -163,7 +163,7 @@
                     <ComboBox x:Name="comboBox_club_champ_mod" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="109,134,0,0" VerticalAlignment="Top" Width="167" Height="22"/>
                     <ComboBox x:Name="comboBox_club_id_mod" HorizontalAlignment="Left" Margin="109,30,0,0" VerticalAlignment="Top" Width="45" Height="22"/>
                     <Label x:Name="label_club_name_mod_Copy" Content="ID" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="58,28,0,0" VerticalAlignment="Top" Height="26" FontWeight="Bold" Width="46"/>
-                    <Button x:Name="btn_club_delete" Content="Eliminar" HorizontalAlignment="Center" Margin="0,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" Foreground="White" Background="#FFD6001E" BorderThickness="0,0,0,0" Grid.Column="1"/>
+                    <Button x:Name="btn_club_delete" Content="Eliminar" HorizontalAlignment="Center" Margin="0,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_delete_club_Click" FontSize="14" FontWeight="Normal" Foreground="White" Background="#FFD6001E" BorderThickness="0,0,0,0" Grid.Column="1"/>
                     <Button x:Name="btn_restart_club_mod" Grid.Column="1" HorizontalAlignment="Left" Margin="370,10,0,0" VerticalAlignment="Top" Click="btn_restart_club_mod_Click" Height="20" Width="20" BorderThickness="0,0,0,0">
                         <Button.Background>
                             <ImageBrush ImageSource="/refresh.png"/>
@@ -196,7 +196,7 @@
                         <ColumnDefinition Width="200*"/>
                     </Grid.ColumnDefinitions>
                     <Label x:Name="label_match_local_add" Content="Equip Local" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="105,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.ColumnSpan="2"/>
-                    <Button x:Name="btn_match_add" Content="Afegir" HorizontalAlignment="Left" Margin="61,204,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" Foreground="Black" Background="White" BorderThickness="0,0,0,0" Grid.Column="1"/>
+                    <Button x:Name="btn_match_add" Content="Afegir" HorizontalAlignment="Left" Margin="61,204,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_match_Click" FontSize="14" FontWeight="Normal" Foreground="Black" Background="White" BorderThickness="0,0,0,0" Grid.Column="1"/>
                     <ComboBox x:Name="comboBox_match_local_add" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="52,68,0,0" VerticalAlignment="Top" Width="200" Height="22"/>
                     <ComboBox x:Name="comboBox_match_away_add" HorizontalAlignment="Left" Margin="147,68,0,0" VerticalAlignment="Top" Width="200" Height="22" Grid.Column="1"/>
                     <Label x:Name="label_match_away_add" Content="Equip Local" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="200,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
@@ -217,14 +217,14 @@
                         <ColumnDefinition Width="200*"/>
                     </Grid.ColumnDefinitions>
                     <Label x:Name="label_match_local_mod" Content="Equip Local" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="105,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.ColumnSpan="2"/>
-                    <Button x:Name="btn_match_mod" Content="Guardar" HorizontalAlignment="Left" Margin="128,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" Foreground="Black" Background="White" BorderThickness="0,0,0,0" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btn_match_mod" Content="Guardar" HorizontalAlignment="Left" Margin="128,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_mod_match_Click" FontSize="14" FontWeight="Normal" Foreground="Black" Background="White" BorderThickness="0,0,0,0" Grid.ColumnSpan="2"/>
                     <ComboBox x:Name="comboBox_match_local_mod" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="52,68,0,0" VerticalAlignment="Top" Width="200" Height="22"/>
                     <ComboBox x:Name="comboBox_match_away_mod" HorizontalAlignment="Left" Margin="147,68,0,0" VerticalAlignment="Top" Width="200" Height="22" Grid.Column="1"/>
                     <Label x:Name="label_match_away_mod" Content="Equip Local" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="200,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
                     <Label x:Name="label_vs1" Content="VS" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="98,66,0,0" VerticalAlignment="Top" Height="26" FontWeight="Bold" Width="49" Grid.Column="1"/>
                     <Label x:Name="label_date_mod" Content="Data de jornada" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="47,109,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="151" Grid.Column="1"/>
                     <DatePicker x:Name="calendar_match_mod" Grid.Column="1" HorizontalAlignment="Left" Margin="35,139,0,0" VerticalAlignment="Top" Width="176"/>
-                    <Button x:Name="btn_match_mod_Copy" Content="Eliminar" HorizontalAlignment="Left" Margin="147,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_add_member_Click" FontSize="14" FontWeight="Normal" Foreground="White" Background="#FFD6001E" BorderThickness="0,0,0,0" Grid.Column="1"/>
+                    <Button x:Name="btn_match_delete" Content="Eliminar" HorizontalAlignment="Left" Margin="147,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_delete_match_Click" FontSize="14" FontWeight="Normal" Foreground="White" Background="#FFD6001E" BorderThickness="0,0,0,0" Grid.Column="1"/>
                     <Button x:Name="btn_restart_match_mod" Grid.Column="1" HorizontalAlignment="Left" Margin="370,10,0,0" VerticalAlignment="Top" Click="btn_restart_match_mod_Click" Height="20" Width="20" BorderThickness="0,0,0,0">
                         <Button.Background>
                             <ImageBrush ImageSource="/refresh.png"/>
