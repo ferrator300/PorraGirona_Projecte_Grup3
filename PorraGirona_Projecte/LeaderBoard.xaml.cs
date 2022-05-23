@@ -49,6 +49,7 @@ namespace PorraGirona_Projecte
             dataGrid_matchs.ItemsSource = sm.GetAll();
 
             comboBox_id_mod.ItemsSource = pl.GetAll();
+            //comboBox_club_name_mod.Items.Clear();
             comboBox_club_name_mod.ItemsSource = cl.GetAll();
             comboBox_club_champ_add.ItemsSource = ch.GetAll();
             comboBox_club_champ_mod.ItemsSource = ch.GetAll();
@@ -184,7 +185,7 @@ namespace PorraGirona_Projecte
                 //Agafem el valor del comboBox sleccionat
                 //Borrem el membre seleccionat de la base de dades
                 pm.RemoveOne(((PollMember)comboBox_id_mod.SelectedItem).Id);
-
+                RefreshData();
             }
             catch (Exception ex)
             {
@@ -255,7 +256,12 @@ namespace PorraGirona_Projecte
                 cl.RemoveOne(((Club)comboBox_club_name_mod.SelectedItem).Id);
                 //comboBox_club_name_mod.Text = "";
                 RestartFields("cm");
+                MessageBox.Show("Club eliminat.");
                 RefreshData();
+            }
+            catch (NullReferenceException ex)
+            {
+                
             }
             catch (Exception ex)
             {
