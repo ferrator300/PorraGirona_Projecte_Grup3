@@ -12,7 +12,7 @@ namespace PorraGirona_Projecte
     {
 
         //Miquel
-        protected string mariaDBConnectionString = "server=localhost;userid=root;database=footballpoll;port=3306;";
+        protected string mariaDBConnectionString = "server=localhost;userid=root;Convert Zero Datetime=true;database=footballpoll;port=3306;";
         MySqlConnection mdbConnection;
 
         public DataBase()
@@ -117,7 +117,7 @@ namespace PorraGirona_Projecte
 
         public bool AddShownMatch(DateTime dateTime, int localClubId, int awayClubId)
         {
-            string command = $"INSERT INTO ShownMatch values(null,{dateTime},{localClubId},{awayClubId});";
+            string command = $"INSERT INTO ShownMatch values(null,'{dateTime.ToString("yyyy-MM-dd HH:mm:ss")}',{localClubId},{awayClubId});";
 
             bool dataIsValid = true;
 
@@ -177,7 +177,7 @@ namespace PorraGirona_Projecte
 
         public bool AddBet(int pollMemberId, int shownMatchId, DateTime dateTime, int localGoals, int awayGoals)
         {
-            string command = $"INSERT INTO Bet VALUES({pollMemberId}, {shownMatchId}, {dateTime}, {localGoals}, {awayGoals});";
+            string command = $"INSERT INTO Bet VALUES({pollMemberId}, {shownMatchId}, '{dateTime}', {localGoals}, {awayGoals});";
 
             try
             {
@@ -325,12 +325,12 @@ namespace PorraGirona_Projecte
                     Club existingClub = new Club();
                     
                     newShownMatch.Id = lines.GetInt32(0);
-                    newShownMatch.DateTime = lines.GetDateTime(1);
+                    newShownMatch.DateTime = (DateTime)lines.GetValue(1);
                         
                         //El valor que retorna la posició nº2 de shownMatch és la clau primària d'un club en format INT32. Per tant, 
                         //Si volem obtenir-ne l'objecte de club relacionat cal que fem servir el mètode GetOne de la classe Club.
                     newShownMatch.LocalClub = existingClub.GetOne(lines.GetInt32(2)); 
-                    newShownMatch.AwayClub = existingClub.GetOne(lines.GetInt32(2));
+                    newShownMatch.AwayClub = existingClub.GetOne(lines.GetInt32(3));
 
                     output.Add(newShownMatch);
                 }
@@ -450,7 +450,7 @@ namespace PorraGirona_Projecte
         /// </returns>
         public List<MatchResult> SelectMatchResult()
         {
-            string command = $"SELECT * FROM ScoreHistory;";
+            string command = $"SELECT * FROM MatchResult;";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
@@ -675,12 +675,15 @@ namespace PorraGirona_Projecte
             try
             {   
                 ShownMatch newShownMatch = new ShownMatch();
+                Club existingLocalClub = new Club();
+                Club existingAwayClub = new Club();
+
                 while (lines.Read())
                 {                    
                     newShownMatch.Id = lines.GetInt32(0);
                     newShownMatch.DateTime = lines.GetDateTime(1);
-                    newShownMatch.LocalClub = (Club)lines.GetValue(2);
-                    newShownMatch.AwayClub = (Club)lines.GetValue(3);
+                    newShownMatch.LocalClub = existingLocalClub.GetOne(lines.GetInt32(2));
+                    newShownMatch.AwayClub = existingAwayClub.GetOne(lines.GetInt32(3)); 
                 }
 
                 lines.Close();
@@ -778,7 +781,7 @@ namespace PorraGirona_Projecte
         /// </returns>
         public MatchResult GetOneMatchResult(int shownMatchId)
         {
-            string command = $"SELECT * FROM ScoreHistory WHERE ShownMatch_ID = {shownMatchId};";
+            string command = $"SELECT * FROM MatchResult WHERE ShownMatch_ID = {shownMatchId};";
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
 
@@ -787,9 +790,10 @@ namespace PorraGirona_Projecte
             try
             {
                 MatchResult newMatchResult = new MatchResult();
+                ShownMatch newShownMatch = new ShownMatch();
                 while (lines.Read())
                 {
-                    newMatchResult.ShownMatch = (ShownMatch)lines.GetValue(0);
+                    newMatchResult.ShownMatch = (ShownMatch)newShownMatch.GetOne(lines.GetInt32(0));
                     newMatchResult.LocalGoals = lines.GetInt32(1);
                     newMatchResult.AwayGoals = lines.GetInt32(2);
                 }

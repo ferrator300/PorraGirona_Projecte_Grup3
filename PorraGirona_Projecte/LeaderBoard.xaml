@@ -32,7 +32,16 @@
                 <DataGridTextColumn Header="PUNTS" Binding="{Binding GlobalScore}" IsReadOnly="true"/>
                 <DataGridTextColumn Width="*">
                     <DataGridTextColumn.Header>
-                        <ComboBox x:Name="comboBox_leaderboard_jornada"  Width="240" HorizontalAlignment="Center" />
+                        <ComboBox x:Name="comboBox_leaderboard_jornada"  Width="240" HorizontalAlignment="Center">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Rectangle Fill="{Binding Id}"/>
+                                        <TextBlock Text="{Binding Id}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
             </DataGrid.Columns>
@@ -216,14 +225,14 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGrid_matchs" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
                         <DataGrid.DataContext>
-                            <local:ShownMatch/>
+                            <local:MatchResult/>
                         </DataGrid.DataContext>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Width="40" Binding="{Binding Id}"/>
-                            <DataGridTextColumn Header="Local" Width="*" Binding="{Binding LocalClub}"/>
-                            <DataGridTextColumn Header="Visitant" Width="*" Binding="{Binding AwayClub}"/>
-                            <DataGridTextColumn Header="Gols Locals" Width="40" Binding="{Binding MatchResult.LocalGoals}"/>
-                            <DataGridTextColumn Header="Gols Visitants" Width="40" Binding="{Binding MatchResult.AwayGoals}"/>
+                            <DataGridTextColumn Header="ID" Width="46" Binding="{Binding ShownMatch.Id}"/>
+                            <DataGridTextColumn Header="Local" Width="155" Binding="{Binding ShownMatch.LocalClub.Name}"/>
+                            <DataGridTextColumn Header="Visitant" Width="155" Binding="{Binding ShownMatch.AwayClub.Name}"/>
+                            <DataGridTextColumn Header="Gols Local" Width="95" Binding="{Binding LocalGoals}"/>
+                            <DataGridTextColumn Header="Gols Visitant" Width="95" Binding="{Binding AwayGoals}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -305,7 +314,7 @@
                             <ImageBrush ImageSource="/refresh.png"/>
                         </Button.Background>
                     </Button>
-                    <ComboBox x:Name="comboBox_match_id_mod" HorizontalAlignment="Left" Margin="98,29,0,0" VerticalAlignment="Top" Width="50" Grid.Column="1">
+                    <ComboBox x:Name="comboBox_match_id_mod" HorizontalAlignment="Left" Margin="98,29,0,0" VerticalAlignment="Top" Width="50" Grid.Column="1" SelectionChanged="comboBox_match_id_mod_change">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

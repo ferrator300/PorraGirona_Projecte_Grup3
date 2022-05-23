@@ -46,7 +46,7 @@ namespace PorraGirona_Projecte
             dataGrid_leaderBoard.ItemsSource = pl.GetAll();
             dataGrid_members.ItemsSource = pl.GetAll();
             dataGrid_clubs.ItemsSource = cl.GetAll();
-            dataGrid_matchs.ItemsSource = sm.GetAll();
+            dataGrid_matchs.ItemsSource = mr.GetAll();
 
             comboBox_id_mod.ItemsSource = pl.GetAll();
             //comboBox_club_name_mod.Items.Clear();
@@ -61,8 +61,8 @@ namespace PorraGirona_Projecte
 
             comboBox_club_name_mod.ItemsSource = cl.GetAll();
             comboBox_club_champ_mod.ItemsSource = ch.GetAll();
+            comboBox_match_id_mod.ItemsSource = sm.GetAll();
 
-            
         }
 
         //LEADERBOARD
@@ -151,6 +151,7 @@ namespace PorraGirona_Projecte
                     txtBox_member_dni_add.Text,         //Dni
                     txtBox_member_email_add.Text        //Email
                     );
+
                 RefreshData();
                 RestartFields("ma");
                 MessageBox.Show("MEMBRE AFEGIT CORRECTAMENT");
@@ -185,7 +186,9 @@ namespace PorraGirona_Projecte
                 //Agafem el valor del comboBox sleccionat
                 //Borrem el membre seleccionat de la base de dades
                 pm.RemoveOne(((PollMember)comboBox_id_mod.SelectedItem).Id);
+
                 RefreshData();
+                RestartFields("mm");
             }
             catch (Exception ex)
             {
@@ -216,6 +219,7 @@ namespace PorraGirona_Projecte
                     txtBox_club_stadium_add.Text,                               //Estadi
                     txtBox_club_location_add.Text                               //Localització
                     );
+
                 RefreshData();
                 RestartFields("ca");
                 MessageBox.Show("CLUB AFEGIT CORRECTAMENT");
@@ -237,7 +241,7 @@ namespace PorraGirona_Projecte
                     txtBox_club_stadium_mod.Text, txtBox_club_location_mod.Text);
 
                 MessageBox.Show("Equip modificat correctament.");
-                RestartFields("cm");
+
                 RefreshData();
             }
             catch (Exception ex)
@@ -255,6 +259,7 @@ namespace PorraGirona_Projecte
                 //Borrem el club seleccionat de la base de dades
                 cl.RemoveOne(((Club)comboBox_club_name_mod.SelectedItem).Id);
                 //comboBox_club_name_mod.Text = "";
+
                 RestartFields("cm");
                 MessageBox.Show("Club eliminat.");
                 RefreshData();
@@ -290,10 +295,11 @@ namespace PorraGirona_Projecte
                 //Agafem els txtBox de l'apartat Afegir Jornada
                 //Inserim una nova jornada amb els contigunts de cada txtBox a la base de dades 
                 sm.AddOne(
-                    DateTime.Parse(calendar_match_add.Text),          //Data Jornada
+                    DateTime.Parse((calendar_match_add.Text).Replace("/", "-")),          //Data Jornada
                     ((Club)comboBox_match_local_add.SelectedItem).Id, //Id local
                     ((Club)comboBox_match_away_add.SelectedItem).Id   //ID visitant
                     );
+
                 RefreshData();
                 RestartFields("ja");
                 MessageBox.Show("JORNADA AFEGIDA CORRECTAMENT");
@@ -311,6 +317,13 @@ namespace PorraGirona_Projecte
             {
                 //Falta un comboBox per poder triar la jornada. 
                 //Si no, s'haurà de fer un mètode de select que busqui a partir d'equip local, equip visitant i data.
+                sm.ModOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id, 
+                    DateTime.Parse((calendar_match_add.Text).Replace("/", "-")),
+                    ((Club)comboBox_match_local_add.SelectedItem).Id,
+                    ((Club)comboBox_match_away_add.SelectedItem).Id);
+
+                RefreshData();
+                RestartFields("ja");
             }
             catch (Exception ex)
             {
@@ -323,8 +336,14 @@ namespace PorraGirona_Projecte
             ShownMatch sm = new ShownMatch();
             try
             {
+                int deletedShownMatchId = ((ShownMatch)comboBox_match_id_mod.SelectedItem).Id;
                 //Falta un comboBox per poder triar la jornada. 
                 //Si no, s'haurà de fer un mètode de select que busqui a partir d'equip local, equip visitant i data.
+                sm.RemoveOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id);
+
+                RefreshData();
+                RestartFields("ja");
+                MessageBox.Show($"Jornada {deletedShownMatchId} eliminada correctament.");
             }
             catch (Exception ex)
             {
@@ -450,6 +469,11 @@ namespace PorraGirona_Projecte
             RestoreMember();
         }
 
+        private void comboBox_match_id_mod_change(object sender, SelectionChangedEventArgs e)
+        {
+            //RestoreShownMatch();
+        }
+
         private void RestoreMember()
         {
             PollMember pl = new PollMember();
@@ -472,5 +496,34 @@ namespace PorraGirona_Projecte
             txtBox_club_stadium_mod.Text = cl.Stadium;
             comboBox_club_champ_mod.SelectedItem = cl.Championship; //NO VA! Cal buscar com fer un canvi de camp en un combobox sense saber-ne l'índex.
         }
+        //private void RestoreShownMatch()
+        //{
+        //    Club cl = new Club();
+        //    cl = cl.GetOne(((Club)comboBox_club_name_mod.SelectedItem).Id);
+
+        //    List<Club> localClubs = new List<Club>();
+        //    int index = 0;
+        //    int selectedLocal;
+        //    foreach (Club club in comboBox_match_local_mod.Items)
+        //    {
+        //        localClubs.Add(club);
+        //        if (club.Name == (((ShownMatch)comboBox_match_id_mod.SelectedItem).LocalClub.Name))
+        //        {
+        //            //comboBox_match_local_mod.SelectedItem = club;
+        //            cl = club;
+        //            selectedLocal = index;
+        //        }
+        //        index++;
+        //    }
+        //    comboBox_match_local_mod.ItemsSource = localClubs;
+        //    comboBox_match_local_mod.SelectedItem = cl;
+
+        //    //txtBox_club_alias_mod.Text = cl.ShortName;
+        //    //txtBox_club_location_mod.Text = cl.Locality;
+        //    //comboBox_club_name_mod.SelectedItem = cl.Name;
+        //    //txtBox_club_id_mod.Text = cl.Id.ToString();
+        //    //txtBox_club_stadium_mod.Text = cl.Stadium;
+        //    //comboBox_club_champ_mod.SelectedItem = cl.Championship; //NO VA! Cal buscar com fer un canvi de camp en un combobox sense saber-ne l'índex.
+        //}
     }
 }
