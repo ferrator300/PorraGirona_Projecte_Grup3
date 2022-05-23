@@ -40,7 +40,7 @@
         <Label x:Name="lable_title" Content="LLISTA PUNTUACIONS" HorizontalAlignment="Left" Margin="204,29,0,0" VerticalAlignment="Top" Width="560" Foreground="White" FontWeight="Bold" FontSize="18" Height="36" Background="#FF303030"/>
         <Button x:Name="btn_LogOut" Content="DESCONNECTAR" HorizontalAlignment="Left" Margin="25,383,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_LogOut_Click" RenderTransformOrigin="0.496,0.563"/>
         <Button x:Name="btn_poll" Content="APOSTAR" HorizontalAlignment="Left" Margin="25,336,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_poll_click" RenderTransformOrigin="0.496,0.563"/>
-        <TabControl x:Name="tab_members" Margin="204,71,32,67" Visibility="Visible" Width="560">
+        <TabControl x:Name="tab_members" Margin="204,71,32,67" Visibility="Visible" Width="560" d:IsHidden="True">
             <TabItem x:Name="tab_list_member" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGrid_members" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
@@ -211,7 +211,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TabControl x:Name="tab_matchs" Margin="204,71,32,67" Visibility="Visible" Width="560" d:IsHidden="True">
+        <TabControl x:Name="tab_matchs" Margin="204,71,32,67" Visibility="Visible" Width="560">
             <TabItem x:Name="tab_list_match" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGrid_matchs" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
@@ -256,7 +256,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Label x:Name="label_match_away_add" Content="Equip Local" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="200,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
+                    <Label x:Name="label_match_away_add" Content="Equip Visitant" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="200,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
                     <Label x:Name="label_vs" Content="VS" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="98,66,0,0" VerticalAlignment="Top" Height="26" FontWeight="Bold" Width="49" Grid.Column="1"/>
                     <Label x:Name="label_date_add" Content="Data de jornada" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="47,109,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="151" Grid.Column="1"/>
                     <DatePicker x:Name="calendar_match_add" Grid.Column="1" HorizontalAlignment="Left" Margin="35,139,0,0" VerticalAlignment="Top" Width="176"/>
