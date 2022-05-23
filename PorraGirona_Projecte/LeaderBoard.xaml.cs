@@ -48,20 +48,19 @@ namespace PorraGirona_Projecte
             dataGrid_clubs.ItemsSource = cl.GetAll();
             dataGrid_matchs.ItemsSource = sm.GetAll();
 
+            comboBox_leaderboard_jornada.ItemsSource = sm.GetAll();
+
             comboBox_id_mod.ItemsSource = pl.GetAll();
+
             comboBox_club_name_mod.ItemsSource = cl.GetAll();
             comboBox_club_champ_add.ItemsSource = ch.GetAll();
             comboBox_club_champ_mod.ItemsSource = ch.GetAll();
-            comboBox_leaderboard_jornada.ItemsSource = sm.GetAll();
+
             comboBox_match_away_add.ItemsSource = cl.GetAll();
-            comboBox_match_away_mod.ItemsSource = cl.GetAll();
             comboBox_match_local_add.ItemsSource = cl.GetAll();
-            comboBox_match_local_mod.ItemsSource= cl.GetAll();
-
-            comboBox_club_name_mod.ItemsSource = cl.GetAll();
-            comboBox_club_champ_mod.ItemsSource = ch.GetAll();
-
-            
+            comboBox_match_away_mod.ItemsSource = cl.GetAll();
+            comboBox_match_local_mod.ItemsSource = cl.GetAll();
+            comboBox_match_id_mod.ItemsSource = sm.GetAll();
         }
 
         //LEADERBOARD

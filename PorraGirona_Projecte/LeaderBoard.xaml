@@ -23,7 +23,7 @@
         <Button x:Name="btn_members" Content="MEMBRES" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_members_Click"/>
         <Button x:Name="btn_clubs" Content="CLUBS" HorizontalAlignment="Left" Margin="25,163,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_clubs_Click"/>
         <Button x:Name="btn_matches" Content="JORNADES" HorizontalAlignment="Left" Margin="25,217,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_matches_Click" RenderTransformOrigin="0.496,0.563"/>
-        <DataGrid x:Name="dataGrid_leaderBoard" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="204,69,32,29" ColumnWidth="Auto" AutoGenerateColumns="False" Visibility="Hidden" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="560" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
+        <DataGrid x:Name="dataGrid_leaderBoard" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="204,69,32,29" ColumnWidth="Auto" AutoGenerateColumns="False" Visibility="Visible" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="560" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
             <DataGrid.DataContext>
                 <local:PollMember/>
             </DataGrid.DataContext>
@@ -40,7 +40,7 @@
         <Label x:Name="lable_title" Content="LLISTA PUNTUACIONS" HorizontalAlignment="Left" Margin="204,29,0,0" VerticalAlignment="Top" Width="560" Foreground="White" FontWeight="Bold" FontSize="18" Height="36" Background="#FF303030"/>
         <Button x:Name="btn_LogOut" Content="DESCONNECTAR" HorizontalAlignment="Left" Margin="25,383,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_LogOut_Click" RenderTransformOrigin="0.496,0.563"/>
         <Button x:Name="btn_poll" Content="APOSTAR" HorizontalAlignment="Left" Margin="25,336,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_poll_click" RenderTransformOrigin="0.496,0.563"/>
-        <TabControl x:Name="tab_members" Margin="204,71,32,67" Visibility="Hidden" Width="560">
+        <TabControl x:Name="tab_members" Margin="204,71,32,67" Visibility="Visible" Width="560">
             <TabItem x:Name="tab_list_member" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGrid_members" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
@@ -50,7 +50,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="40" IsReadOnly="True"/>
                             <DataGridTextColumn Header="DNI" Binding="{Binding Nif}" Width="100" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Nom i Cognoms" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Cognom" Binding="{Binding Surname}" Width="*" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -62,10 +63,10 @@
                         <ColumnDefinition Width="77*"/>
                         <ColumnDefinition Width="200*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txtBox_member_dni_add" HorizontalAlignment="Left" Margin="83,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="65" MaxLength="9"/>
+                    <TextBox x:Name="txtBox_member_dni_add" HorizontalAlignment="Left" Margin="83,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" MaxLength="9" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="txtBox_member_name_add" HorizontalAlignment="Left" Margin="83,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="txtBox_member_email_add" HorizontalAlignment="Left" Margin="83,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
-                    <Label x:Name="label_dni_add" Content="DNI" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="46,58,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
+                    <Label x:Name="label_dni_add" Content="DNI" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="45,58,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
                     <Label x:Name="label_name_add" Content="Nom" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="32,94,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="46"/>
                     <Label x:Name="label_email_add" Content="Email" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
                     <Label x:Name="label_surname_add" Content="Cognoms" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="114,94,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68" Grid.Column="1"/>
@@ -82,10 +83,10 @@
             </TabItem>
             <TabItem x:Name="tab_mod_member" Header="MODIFICAR" Visibility="Visible">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="txtBox_member_dni_mod" HorizontalAlignment="Left" Margin="185,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="65" MaxLength="9"/>
+                    <TextBox x:Name="txtBox_member_dni_mod" HorizontalAlignment="Left" Margin="84,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" MaxLength="9"/>
                     <TextBox x:Name="txtBox_member_name_mod" HorizontalAlignment="Left" Margin="83,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
                     <TextBox x:Name="txtBox_member_email_mod" HorizontalAlignment="Left" Margin="83,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
-                    <Label x:Name="label_dni_mod" Content="DNI" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="148,58,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
+                    <Label x:Name="label_dni_mod" Content="DNI" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="46,58,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
                     <Label x:Name="label_name_mod" Content="Nom" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="32,94,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="46"/>
                     <Label x:Name="label_email_mod" Content="Email" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
                     <Label x:Name="label_surname_mod" Content="Cognoms" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="268,94,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68"/>
@@ -93,8 +94,8 @@
                     <TextBox x:Name="txtBox_member_surname_mod" HorizontalAlignment="Left" Margin="341,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
                     <TextBox x:Name="txtBox_member_adr_mod" HorizontalAlignment="Left" Margin="341,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167"/>
                     <Button x:Name="btn_mod_member" Content="Guardar" HorizontalAlignment="Left" Margin="126,194,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_mod_member_Click" FontSize="14" FontWeight="Normal" BorderThickness="0,0,0,0" Background="White"/>
-                    <Label x:Name="label_id_mod" Content="ID&#xD;&#xA;" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="55,58,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
-                    <ComboBox x:Name="comboBox_id_mod" HorizontalAlignment="Left" Margin="83,60,0,0" VerticalAlignment="Top" Width="50" SelectionChanged="comboBox_id_member_mod">
+                    <Label x:Name="label_id_mod" Content="ID&#xD;&#xA;" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="55,20,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold"/>
+                    <ComboBox x:Name="comboBox_id_mod" HorizontalAlignment="Left" Margin="83,22,0,0" VerticalAlignment="Top" Width="50" SelectionChanged="comboBox_id_member_mod">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -113,7 +114,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TabControl x:Name="tab_clubs" Margin="204,71,32,67" Visibility="Visible" Width="560">
+        <TabControl x:Name="tab_clubs" Margin="204,71,32,67" Visibility="Visible" Width="560" d:IsHidden="True">
             <TabItem x:Name="tab_list_clubs" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGrid_clubs" d:ItemsSource="{d:SampleData ItemCount=5}" CanUserResizeColumns="False" CanUserReorderColumns="False" VerticalContentAlignment="Center" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
@@ -170,8 +171,8 @@
                         <ColumnDefinition Width="154"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txtBox_club_id_mod" HorizontalAlignment="Left" Margin="109,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
-                    <Label x:Name="label_club_name_mod" Content="ID" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="58,63,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="46"/>
+                    <TextBox x:Name="txtBox_club_id_mod" IsReadOnly="True" HorizontalAlignment="Left" Margin="190,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" IsEnabled="False" Grid.Column="1"/>
+                    <Label x:Name="label_club_name_mod" Content="ID" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="139,132,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="46" Grid.Column="1"/>
                     <Label x:Name="label_club_champ_mod" Content="Lliga" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94"/>
                     <Label x:Name="label_club_alias_mod" Content="Àlies" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="117,63,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="68" Grid.Column="1"/>
                     <TextBox x:Name="txtBox_club_alias_mod" HorizontalAlignment="Left" Margin="190,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" Grid.Column="1"/>
@@ -190,7 +191,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox x:Name="comboBox_club_name_mod" HorizontalAlignment="Left" Margin="109,30,0,0" VerticalAlignment="Top" Width="168" Height="22" SelectionChanged="comboBox_club_mod_change" Grid.ColumnSpan="2">
+                    <ComboBox x:Name="comboBox_club_name_mod" HorizontalAlignment="Left" Margin="109,65,0,0" VerticalAlignment="Top" Width="168" Height="22" SelectionChanged="comboBox_club_mod_change" Grid.ColumnSpan="2">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -200,7 +201,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Label x:Name="label_club_name_mod_Copy" Content="Nom" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="58,28,0,0" VerticalAlignment="Top" Height="26" FontWeight="Bold" Width="46"/>
+                    <Label x:Name="label_club_name_mod_Copy" Content="Nom" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="58,63,0,0" VerticalAlignment="Top" Height="26" FontWeight="Bold" Width="46"/>
                     <Button x:Name="btn_club_delete" Content="Eliminar" HorizontalAlignment="Center" Margin="0,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_delete_club_Click" FontSize="14" FontWeight="Normal" Foreground="White" Background="#FFD6001E" BorderThickness="0,0,0,0" Grid.Column="1"/>
                     <Button x:Name="btn_restart_club_mod" Grid.Column="1" HorizontalAlignment="Left" Margin="370,10,0,0" VerticalAlignment="Top" Click="btn_restart_club_mod_Click" Height="20" Width="20" BorderThickness="0,0,0,0">
                         <Button.Background>
@@ -210,7 +211,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TabControl x:Name="tab_matchs" Margin="204,71,32,67" Visibility="Hidden" Width="560">
+        <TabControl x:Name="tab_matchs" Margin="204,71,32,67" Visibility="Visible" Width="560" d:IsHidden="True">
             <TabItem x:Name="tab_list_match" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGrid_matchs" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
@@ -304,20 +305,34 @@
                             <ImageBrush ImageSource="/refresh.png"/>
                         </Button.Background>
                     </Button>
+                    <ComboBox x:Name="comboBox_match_id_mod" HorizontalAlignment="Left" Margin="98,29,0,0" VerticalAlignment="Top" Width="50" Grid.Column="1">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Fill="{Binding Id}"/>
+                                    <TextBlock Text="{Binding Id}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Label x:Name="label_match_id_mod" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="76,2,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Content="ID" Grid.Column="1"/>
                 </Grid>
             </TabItem>
         </TabControl>
-        <Grid x:Name="tab_poll" Margin="204,70,32,10" Visibility="Hidden">
+        <Grid x:Name="tab_poll" Margin="204,70,32,10" Visibility="Visible" d:IsHidden="True">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF303030"/>
                     <GradientStop Color="#FFD6001E" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <Label x:Name="lable_local_poll" Content="Local" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="89,0,0,0" VerticalAlignment="Center" Width="165" FontWeight="Bold" FontSize="16" Foreground="White"/>
-            <Label x:Name="lable_away_poll" Content="Away" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="306,0,0,0" VerticalAlignment="Center" Width="165" FontWeight="Bold" FontSize="16" Foreground="White"/>
-            <Label x:Name="lable_away_poll_Copy" Content="Date" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,223,0,0" VerticalAlignment="Top" Width="164" FontWeight="Bold" FontSize="16" Foreground="White"/>
+            <Label x:Name="lable_local_poll" Content="Local" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="91,69,0,0" VerticalAlignment="Top" Width="189" FontWeight="Bold" FontSize="16" Foreground="White"/>
+            <Label x:Name="lable_away_poll" Content="Away" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="280,69,0,0" VerticalAlignment="Top" Width="188" FontWeight="Bold" FontSize="16" Foreground="White" RenderTransformOrigin="0.421,0.583"/>
+            <Label x:Name="lable_date_poll" Content="Date" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,231,0,0" VerticalAlignment="Top" Width="164" FontWeight="Bold" FontSize="16" Foreground="White"/>
             <Button x:Name="btn_Poll" Content="APOSTAR" HorizontalAlignment="Center" Margin="0,287,0,0" VerticalAlignment="Top" Width="188" Height="35" FontWeight="Bold"/>
+            <TextBox x:Name="txtBox_localGoals_Poll" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="146,121,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="80" Height="80" FontSize="36" FontWeight="Normal"/>
+            <TextBox x:Name="txtBox_AwayGoals_Poll" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="334,121,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="80" Height="80" FontSize="36" FontWeight="Normal"/>
+            <Label x:Name="lable_status_poll" Content="PENDENT" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Width="164" FontWeight="Bold" FontSize="20" Foreground="White"/>
         </Grid>
 
     </Grid>
