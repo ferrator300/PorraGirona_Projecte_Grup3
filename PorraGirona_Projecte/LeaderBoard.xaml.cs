@@ -49,6 +49,7 @@ namespace PorraGirona_Projecte
             dataGrid_matchs.ItemsSource = sm.GetAll();
 
             comboBox_id_mod.ItemsSource = pl.GetAll();
+            //comboBox_club_name_mod.SelectedIndex = -1;
             comboBox_club_name_mod.ItemsSource = cl.GetAll();
             comboBox_club_champ_add.ItemsSource = ch.GetAll();
             comboBox_club_champ_mod.ItemsSource = ch.GetAll();
@@ -254,8 +255,9 @@ namespace PorraGirona_Projecte
                 //Borrem el club seleccionat de la base de dades
                 cl.RemoveOne(((Club)comboBox_club_name_mod.SelectedItem).Id);
                 //comboBox_club_name_mod.Text = "";
-                RestartFields("cm");
+                
                 RefreshData();
+                RestartFields("cm");
             }
             catch (Exception ex)
             {
@@ -419,6 +421,8 @@ namespace PorraGirona_Projecte
                 txtBox_club_id_mod.Text = "";
                 txtBox_club_stadium_mod.Text = "";
                 comboBox_club_champ_mod.SelectedIndex = -1;
+                //comboBox_club_name_mod.SelectedIndex = -1;
+                //comboBox_club_name_mod.Text = "";
             }
             else if (camp == "ja")
             {
