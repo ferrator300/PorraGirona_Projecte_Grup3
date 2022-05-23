@@ -294,7 +294,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Label x:Name="label_match_away_mod" Content="Equip Local" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="200,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
+                    <Label x:Name="label_match_away_mod" Content="Equip Visitant" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="200,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
                     <Label x:Name="label_vs1" Content="VS" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="98,66,0,0" VerticalAlignment="Top" Height="26" FontWeight="Bold" Width="49" Grid.Column="1"/>
                     <Label x:Name="label_date_mod" Content="Data de jornada" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="47,109,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="151" Grid.Column="1"/>
                     <DatePicker x:Name="calendar_match_mod" Grid.Column="1" HorizontalAlignment="Left" Margin="35,139,0,0" VerticalAlignment="Top" Width="176"/>

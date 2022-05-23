@@ -183,7 +183,8 @@ namespace PorraGirona_Projecte
             {
                 //Agafem el valor del comboBox sleccionat
                 //Borrem el membre seleccionat de la base de dades
-                pm.RemoveOne(Convert.ToInt32(comboBox_id_mod.Text));
+                pm.RemoveOne(((PollMember)comboBox_id_mod.SelectedItem).Id);
+
             }
             catch (Exception ex)
             {
@@ -233,6 +234,10 @@ namespace PorraGirona_Projecte
                 cl.ModOne(Convert.ToInt32(txtBox_club_id_mod.Text), ((Club)comboBox_club_name_mod.SelectedItem).Name,
                     txtBox_club_alias_mod.Text, ((Championship)comboBox_club_champ_mod.SelectedItem).Id,
                     txtBox_club_stadium_mod.Text, txtBox_club_location_mod.Text);
+
+                MessageBox.Show("Equip modificat correctament.");
+                RestartFields("cm");
+                RefreshData();
             }
             catch (Exception ex)
             {
@@ -249,7 +254,7 @@ namespace PorraGirona_Projecte
                 //Borrem el club seleccionat de la base de dades
                 cl.RemoveOne(((Club)comboBox_club_name_mod.SelectedItem).Id);
                 //comboBox_club_name_mod.Text = "";
-                //RestartFields("cm");
+                RestartFields("cm");
                 RefreshData();
             }
             catch (Exception ex)
@@ -413,7 +418,7 @@ namespace PorraGirona_Projecte
                 txtBox_club_location_mod.Text = "";
                 txtBox_club_id_mod.Text = "";
                 txtBox_club_stadium_mod.Text = "";
-                comboBox_club_champ_mod.SelectedIndex = 0;
+                comboBox_club_champ_mod.SelectedIndex = -1;
             }
             else if (camp == "ja")
             {
