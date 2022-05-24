@@ -63,6 +63,19 @@ namespace PorraGirona_Projecte
             comboBox_club_champ_mod.ItemsSource = ch.GetAll();
             comboBox_match_id_mod.ItemsSource = sm.GetAll();
 
+            try
+            {
+                lable_local_poll.Content = ShownMatch.GetLastShownMatch().LocalClub.Name;
+                lable_away_poll.Content = ShownMatch.GetLastShownMatch().AwayClub.Name;
+                lable_date_poll.Content = ShownMatch.GetLastShownMatch().DateTime.ToString("dd/MM/yyyy");
+            }
+            catch(Exception ex)
+            {
+                lable_local_poll.Content = "Equip Local";
+                lable_away_poll.Content = "Equip Visitant";
+                lable_date_poll.Content = DateTime.Now.ToString("dd/MM/yyyy");
+            }
+
         }
 
         //LEADERBOARD
@@ -134,12 +147,23 @@ namespace PorraGirona_Projecte
             tab_list_clubs.IsSelected = true;
             tab_list_match.IsSelected = true;
             tab_list_member.IsSelected = true;
+
+            //Amaguem els camps dels gols
+            label_gol_local_mod.Visibility = Visibility.Hidden;
+            label_gol_local_mod.IsEnabled = false;
+            txtBox_match_localGoals_mod.Visibility = Visibility.Hidden;
+            txtBox_match_localGoals_mod.IsEnabled = false;
+            label_gol_away_mod.Visibility = Visibility.Hidden;
+            label_gol_away_mod.IsEnabled = false;
+            txtBox_match_awayGoals_mod.Visibility = Visibility.Hidden;
+            txtBox_match_awayGoals_mod.IsEnabled = false;
         }
 
         //BOTÓ AFEGIR MEMBRE
         private void btn_add_member_Click(object sender, RoutedEventArgs e)
         {
             PollMember pl = new PollMember();
+            Password pw = new Password();
             try
             {
                 //Agafem els txtBox de l'apartat Afegir Membre
@@ -151,6 +175,8 @@ namespace PorraGirona_Projecte
                     txtBox_member_dni_add.Text,         //Dni
                     txtBox_member_email_add.Text        //Email
                     );
+
+                pw.AddOne(PollMember.GetLastPollMember().Id, txtBox_member_password_add.Text);
 
                 RefreshData();
                 RestartFields("ma");
@@ -313,17 +339,40 @@ namespace PorraGirona_Projecte
         private void btn_mod_match_Click(object sender, RoutedEventArgs e)
         {   
             ShownMatch sm = new ShownMatch();
+            Club cl = new Club();
+            MatchResult mr = new MatchResult();
             try
             {
+                Club cl1 = (Club)comboBox_match_local_add.SelectedItem;
                 //Falta un comboBox per poder triar la jornada. 
                 //Si no, s'haurà de fer un mètode de select que busqui a partir d'equip local, equip visitant i data.
-                sm.ModOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id, 
-                    DateTime.Parse((calendar_match_add.Text).Replace("/", "-")),
-                    ((Club)comboBox_match_local_add.SelectedItem).Id,
-                    ((Club)comboBox_match_away_add.SelectedItem).Id);
+                sm.ModOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id,
+                    /*DateTime.Parse((calendar_match_add.Text).Replace("/", "-")),*/
+                    //Convert.ToDateTime(calendar_match_add.SelectedDate.Value.ToString("yyyy-MM-dd HH:mm:ss")),
+                    calendar_match_mod.SelectedDate.Value,
+                    ((Club)comboBox_match_local_mod.SelectedItem).Id,
+                    ((Club)comboBox_match_away_mod.SelectedItem).Id);
+                
+                if (checkBox_terminate_match.IsChecked == true)
+                {
+                    int localGoals;
+                    int awayGoals;
+                    if (txtBox_match_localGoals_mod.Text == "") localGoals = 0;
+                    else if (txtBox_match_awayGoals_mod.Text == "") awayGoals = 0;
+                    else
+                    {
+                        localGoals = Convert.ToInt32(txtBox_match_localGoals_mod.Text);
+                        awayGoals = Convert.ToInt32(txtBox_match_awayGoals_mod.Text);
+                        if (localGoals < 0 || awayGoals < 0) MessageBox.Show("Error. El valor dels gols no pot ser inferior a 0.");
+                        else
+                        {
+                            mr.AddOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id, localGoals, awayGoals);
+                        }
+                    } 
+                }
 
                 RefreshData();
-                RestartFields("ja");
+                RestartFields("jm");
             }
             catch (Exception ex)
             {
@@ -454,9 +503,18 @@ namespace PorraGirona_Projecte
             }
             else if (camp == "jm")
             {
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //Restablir a les dades de l'element seleccionat
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                label_match_mod_localClub.Content = "";
+                label_match_mod_awayClub.Content = "";
+                label_match_mod_dateTime.Content = "";
+
+                comboBox_match_local_mod.SelectedIndex = -1;
+                comboBox_match_away_mod.SelectedIndex = -1;
+                calendar_match_mod.SelectedDate = DateTime.Now;
+            }
+            else if (camp == "ba")
+            {
+                txtBox_localGoals_Poll.Text = "";
+                txtBox_AwayGoals_Poll.Text = "";
             }
         }
 
@@ -470,9 +528,14 @@ namespace PorraGirona_Projecte
             RestoreMember();
         }
 
+        //Etiquetes que mostren els camps que hi ha actualment a cada jornada. (substitut dels mètodes de restauració de dades)
         private void comboBox_match_id_mod_change(object sender, SelectionChangedEventArgs e)
         {
-            //RestoreShownMatch();
+            ShownMatch sm = new ShownMatch();
+
+            label_match_mod_localClub.Content = (( sm.GetOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id) ).LocalClub).Name;
+            label_match_mod_awayClub.Content = ((sm.GetOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id)).AwayClub).Name;
+            label_match_mod_dateTime.Content = (sm.GetOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id)).DateTime.ToString("dd/MM/yyyy");
         }
 
         private void RestoreMember()
@@ -497,6 +560,72 @@ namespace PorraGirona_Projecte
             txtBox_club_stadium_mod.Text = cl.Stadium;
             comboBox_club_champ_mod.SelectedItem = cl.Championship; //NO VA! Cal buscar com fer un canvi de camp en un combobox sense saber-ne l'índex.
         }
+
+        //CHECKBOX JORNADA ACABADA
+            //Checked
+        private void checkBox_terminate_match_Checked(object sender, RoutedEventArgs e)
+        {
+            //Etiqueta local
+            label_gol_local_mod.Visibility = Visibility.Visible;
+            label_gol_local_mod.IsEnabled = true;
+            
+            //TextBox local
+            txtBox_match_localGoals_mod.Visibility = Visibility.Visible;
+            txtBox_match_localGoals_mod.IsEnabled = true;
+
+            //Etiqueta visitant
+            label_gol_away_mod.Visibility = Visibility.Visible;
+            label_gol_away_mod.IsEnabled = true;
+
+            //TextBox visititant
+            txtBox_match_awayGoals_mod.Visibility = Visibility.Visible;
+            txtBox_match_awayGoals_mod.IsEnabled = true;
+        }
+            //Unchecked
+        private void checkBox_terminate_match_Unchecked(object sender, RoutedEventArgs e)
+        {
+            //Etiqueta local
+            label_gol_local_mod.Visibility = Visibility.Hidden;
+            label_gol_local_mod.IsEnabled = false;
+
+            //Textbox local
+            txtBox_match_localGoals_mod.Visibility = Visibility.Hidden;
+            txtBox_match_localGoals_mod.IsEnabled = false;
+
+            //Etiqueta visitant
+            label_gol_away_mod.Visibility = Visibility.Hidden;
+            label_gol_away_mod.IsEnabled = false;
+
+            //TextBox visitant
+            txtBox_match_awayGoals_mod.Visibility = Visibility.Hidden;
+            txtBox_match_awayGoals_mod.IsEnabled = false;
+        }
+
+        //BOTÓ PER APOSTAR
+        private void btn_Bet_Click(object sender, RoutedEventArgs e)
+        {
+            Bet bet = new Bet();
+
+            try
+            {
+                //Obtenim el pollMemberId a partir del mètode que retorna un id d'usuari des d'un nif fent servir la classe CurrentUser.
+                int currentPollMemberId = PollMember.GetIdFromNif(CurrentUser.GetNif());
+                MessageBox.Show(currentPollMemberId.ToString());
+                bet.AddOne(currentPollMemberId, ShownMatch.GetLastShownMatch().Id, 
+                    Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                    Convert.ToInt32(txtBox_localGoals_Poll.Text),
+                    Convert.ToInt32(txtBox_AwayGoals_Poll.Text));
+
+                RefreshData();
+                RestartFields("ba");
+                MessageBox.Show($"Aposta completada."); //Falta controlar que no es pugui apostar dues vegades o més.
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error. Camps vuits o valors incorrectes.");
+            }
+        }
+
         //private void RestoreShownMatch()
         //{
         //    Club cl = new Club();

@@ -44,6 +44,9 @@ namespace PorraGirona_Projecte
             {
                 authorized = true;
                 admin = true;
+
+                //Classe estàtica per guardar el nif i el pollMemberId de l'usuari actual
+                CurrentUser.SetAdmin();
             }
             else
             {
@@ -51,6 +54,9 @@ namespace PorraGirona_Projecte
                 {
                     authorized = true;
                     admin = true;
+
+                    //Classe estàtica per guardar el nif i el pollMemberId de l'usuari actual
+                    CurrentUser.SetUser((txtBox_User_LogIn.Text));
                 }
             }
             //END TEST

@@ -91,6 +91,16 @@ namespace PorraGirona_Projecte
 
             return output;
         }
+
+        public static PollMember GetLastPollMember()
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            PollMember output = database.GetLastPollMember();
+            database.Disconnect();
+
+            return output;
+        }
         #endregion
 
         //INSERT

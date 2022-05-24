@@ -91,6 +91,16 @@ namespace PorraGirona_Projecte
 
             return output;
         }
+
+        public static ShownMatch GetLastShownMatch()
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            ShownMatch output = database.GetLastShownMatch();
+            database.Disconnect();
+
+            return output;
+        }
         #endregion
 
         //INSERT

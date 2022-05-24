@@ -49,7 +49,7 @@
         <Label x:Name="lable_title" Content="LLISTA PUNTUACIONS" HorizontalAlignment="Left" Margin="204,29,0,0" VerticalAlignment="Top" Width="560" Foreground="White" FontWeight="Bold" FontSize="18" Height="36" Background="#FF303030"/>
         <Button x:Name="btn_LogOut" Content="DESCONNECTAR" HorizontalAlignment="Left" Margin="25,383,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_LogOut_Click" RenderTransformOrigin="0.496,0.563"/>
         <Button x:Name="btn_poll" Content="APOSTAR" HorizontalAlignment="Left" Margin="25,336,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_poll_click" RenderTransformOrigin="0.496,0.563"/>
-        <TabControl x:Name="tab_members" Margin="204,71,32,67" Visibility="Visible" Width="560" d:IsHidden="True">
+        <TabControl x:Name="tab_members" Margin="204,71,32,67" Visibility="Visible" Width="560">
             <TabItem x:Name="tab_list_member" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGrid_members" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
@@ -88,6 +88,8 @@
                             <ImageBrush ImageSource="/refresh.png"/>
                         </Button.Background>
                     </Button>
+                    <Label x:Name="label_password_add" Content="Contrasenya" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="97,62,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="85" Grid.Column="1"/>
+                    <TextBox x:Name="txtBox_member_password_add" HorizontalAlignment="Left" Margin="189,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="tab_mod_member" Header="MODIFICAR" Visibility="Visible">
@@ -220,7 +222,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TabControl x:Name="tab_matchs" Margin="204,71,32,67" Visibility="Visible" Width="560">
+        <TabControl x:Name="tab_matchs" Margin="204,71,32,67" Visibility="Visible" Width="560" d:IsHidden="True">
             <TabItem x:Name="tab_list_match" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGrid_matchs" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
@@ -307,7 +309,7 @@
                     <Label x:Name="label_match_away_mod" Content="Equip Visitant" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="188,40,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
                     <Label x:Name="label_vs1" Content="VS" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="98,66,0,0" VerticalAlignment="Top" Height="26" FontWeight="Bold" Width="49" Grid.Column="1"/>
                     <Label x:Name="label_date_mod" Content="Data de jornada" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="47,109,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="151" Grid.Column="1"/>
-                    <DatePicker x:Name="calendar_match_mod" Grid.Column="1" HorizontalAlignment="Left" Margin="35,139,0,0" VerticalAlignment="Top" Width="176"/>
+                    <DatePicker x:Name="calendar_match_mod" Grid.Column="1" HorizontalAlignment="Left" Margin="35,139,0,0" VerticalAlignment="Top" Width="176" SelectedDateFormat="Short"/>
                     <Button x:Name="btn_match_delete" Content="Eliminar" HorizontalAlignment="Left" Margin="147,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_delete_match_Click" FontSize="14" FontWeight="Normal" Foreground="White" Background="#FFD6001E" BorderThickness="0,0,0,0" Grid.Column="1"/>
                     <Button x:Name="btn_restart_match_mod" Grid.Column="1" HorizontalAlignment="Left" Margin="370,10,0,0" VerticalAlignment="Top" Click="btn_restart_match_mod_Click" Height="20" Width="20" BorderThickness="0,0,0,0">
                         <Button.Background>
@@ -325,11 +327,14 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                     <Label x:Name="label_match_id_mod" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="76,2,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Content="ID" Grid.Column="1"/>
-                    <CheckBox x:Name="checkBox_terminate_match" Content="Acabada" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBox_terminate_match" Content="Acabada" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="checkBox_terminate_match_Checked" Unchecked="checkBox_terminate_match_Unchecked"/>
                     <TextBox x:Name="txtBox_match_localGoals_mod" HorizontalAlignment="Left" Margin="32,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30"/>
                     <Label x:Name="label_gol_local_mod" Content="Gols" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94"/>
-                    <Label x:Name="label_gol_local_mod_Copy" Content="Gols" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="306,40,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
+                    <Label x:Name="label_gol_away_mod" Content="Gols" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="306,40,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
                     <TextBox x:Name="txtBox_match_awayGoals_mod" HorizontalAlignment="Left" Margin="338,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30" Grid.Column="1"/>
+                    <Label x:Name="label_match_mod_localClub" Content="" HorizontalAlignment="Left" Margin="77,96,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label_match_mod_awayClub" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="284,96,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label_match_mod_dateTime" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="76,163,0,0" VerticalAlignment="Top" Width="94"/>
                 </Grid>
             </TabItem>
         </TabControl>
@@ -343,7 +348,7 @@
             <Label x:Name="lable_local_poll" Content="Local" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="91,69,0,0" VerticalAlignment="Top" Width="189" FontWeight="Bold" FontSize="16" Foreground="White"/>
             <Label x:Name="lable_away_poll" Content="Away" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="280,69,0,0" VerticalAlignment="Top" Width="188" FontWeight="Bold" FontSize="16" Foreground="White" RenderTransformOrigin="0.421,0.583"/>
             <Label x:Name="lable_date_poll" Content="Date" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,231,0,0" VerticalAlignment="Top" Width="164" FontWeight="Bold" FontSize="16" Foreground="White"/>
-            <Button x:Name="btn_Poll" Content="APOSTAR" HorizontalAlignment="Center" Margin="0,287,0,0" VerticalAlignment="Top" Width="188" Height="35" FontWeight="Bold"/>
+            <Button x:Name="btn_Bet" Content="APOSTAR" HorizontalAlignment="Center" Margin="0,287,0,0" VerticalAlignment="Top" Width="188" Height="35" FontWeight="Bold" Click="btn_Bet_Click"/>
             <TextBox x:Name="txtBox_localGoals_Poll" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="146,121,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="80" Height="80" FontSize="36" FontWeight="Normal"/>
             <TextBox x:Name="txtBox_AwayGoals_Poll" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="334,121,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="80" Height="80" FontSize="36" FontWeight="Normal"/>
             <Label x:Name="lable_status_poll" Content="PENDENT" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Width="164" FontWeight="Bold" FontSize="20" Foreground="White"/>

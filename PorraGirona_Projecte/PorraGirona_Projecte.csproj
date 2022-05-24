@@ -80,6 +80,7 @@
     </ApplicationDefinition>
     <Compile Include="Championship.cs" />
     <Compile Include="Bet.cs" />
+    <Compile Include="CurrentUser.cs" />
     <Compile Include="MatchResult.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="ScoreHistory.cs" />

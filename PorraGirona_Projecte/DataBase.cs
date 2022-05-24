@@ -243,6 +243,24 @@ namespace PorraGirona_Projecte
                 return false;
             }
         }
+        public bool AddPassword(int pollMemberId, string password)
+        {
+            string command = $"INSERT INTO Password VALUES({pollMemberId}, '{password}';";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         //Methods to get all rows from a table
@@ -948,6 +966,37 @@ namespace PorraGirona_Projecte
             }
 
         }
+        public PollMember GetLastPollMember()
+        {
+            string command = $"SELECT * FROM PollMember where PollMember_ID = (select max(PollMember_ID) from PollMember);";
+
+            MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+            MySqlDataReader lines = oCommand.ExecuteReader();
+
+            try
+            {
+                PollMember newPollMember = new PollMember();
+                while (lines.Read())
+                {
+                    newPollMember.Id = lines.GetInt32(0);
+                    newPollMember.Name = lines.GetString(1);
+                    newPollMember.Surname = lines.GetString(2);
+                    newPollMember.Address = lines.GetString(3);
+                    newPollMember.Nif = lines.GetString(4);
+                    newPollMember.Email = lines.GetString(5);
+                    newPollMember.GlobalScore = lines.GetInt32(6);
+                }
+
+                lines.Close();
+                return newPollMember;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
         #endregion
 
         //Mètode per tornar una select d'una sola columna. (legacy)
@@ -1503,9 +1552,9 @@ namespace PorraGirona_Projecte
         //Mètodes per retornar un sol camp de la base de dades
 
         //Recuparem la id del membre a partir del NIF
-        public int GetOnePollMemberId(string pollMemberNif)
+        public int GetOnePollMemberId(string nif)
         {
-            string command = $"SELECT PollMember_ID FROM PollMember WHERE Nif = '{pollMemberNif}';";
+            string command = $"SELECT PollMember_ID FROM PollMember WHERE Nif = '{nif}';";
             int pollMemberId = -1;
 
             MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);

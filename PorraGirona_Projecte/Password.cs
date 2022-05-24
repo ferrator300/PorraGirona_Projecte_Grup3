@@ -56,6 +56,26 @@ namespace PorraGirona_Projecte
         }
         #endregion
 
+        //INSERT
+        #region
+        public bool AddOne(int pollMemberId, string password)
+        {
+            try
+            {
+                DataBase database = new DataBase();
+                database.Connect();
+                database.AddPassword(pollMemberId, password);
+                database.Disconnect();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
         //UPDATE
         #region
         public bool ModOne(int pollMemberId, string securityKey)
