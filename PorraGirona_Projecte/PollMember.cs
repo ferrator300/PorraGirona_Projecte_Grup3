@@ -81,6 +81,16 @@ namespace PorraGirona_Projecte
 
             return output;
         }
+
+        public static int GetIdFromNif(string nif)
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            int output = database.GetOnePollMemberId(nif);
+            database.Disconnect();
+
+            return output;
+        }
         #endregion
 
         //INSERT

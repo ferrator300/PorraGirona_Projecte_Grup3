@@ -1497,5 +1497,62 @@ namespace PorraGirona_Projecte
         //    throw new System.NotImplementedException();
         //}
         #endregion
+
+        //FERRAN
+
+        //Mètodes per retornar un sol camp de la base de dades
+
+        //Recuparem la id del membre a partir del NIF
+        public int GetOnePollMemberId(string pollMemberNif)
+        {
+            string command = $"SELECT PollMember_ID FROM PollMember WHERE Nif = '{pollMemberNif}';";
+            int pollMemberId = -1;
+
+            MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+            MySqlDataReader lines = oCommand.ExecuteReader();
+
+            try
+            {
+                while (lines.Read())
+                {
+                    pollMemberId = lines.GetInt32(0);
+                }
+                lines.Close();
+                return pollMemberId;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+
+        //Recuparem el password del membre segons la id anterior
+        public string GetPasswordFromId(int pollMemberId)
+        {
+            string command = $"SELECT Password FROM PASSWORD WHERE PollMember_ID = {pollMemberId};";
+
+            string password = "";
+
+            MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+            MySqlDataReader lines = oCommand.ExecuteReader();
+
+            try
+            {
+                while (lines.Read())
+                {
+                    password = lines.GetString(0);
+                }
+                lines.Close();
+                return password;
+            }
+            catch (Exception ex)
+            {
+                return password;
+            }
+        }
+
+        // ----- FINAL FERRAN
     }
 }

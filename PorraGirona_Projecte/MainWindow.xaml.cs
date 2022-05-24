@@ -38,11 +38,20 @@ namespace PorraGirona_Projecte
 
         private void btn_LogIn_Click(object sender, RoutedEventArgs e)
         {
+
             //TEST
-            if (txtBox_User_LogIn.Text == "root")
+            if (txtBox_User_LogIn.Text == "admin" && txtBox_logIn_passwd.Password.ToString() == "admin")
             {
                 authorized = true;
                 admin = true;
+            }
+            else
+            {
+                if (Password.GetPasswordFromId(PollMember.GetIdFromNif(txtBox_User_LogIn.Text)) == txtBox_logIn_passwd.Password.ToString())
+                {
+                    authorized = true;
+                    admin = true;
+                }
             }
             //END TEST
 

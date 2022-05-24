@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="PorraGirona_Projecte.App" Collapsed="true">
-    <Position X="0.5" Y="2.5" Width="1.5" />
+    <Position X="2" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PorraGirona_Projecte.MainWindow" BaseTypeListCollapsed="true">
-    <Position X="4" Y="1.5" Width="1.5" />
+    <Position X="4.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAIAAAAAAAAAAAEBAAAAAAAAAEAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="PorraGirona_Projecte.Properties.Resources" Collapsed="true">
-    <Position X="0.5" Y="1.5" Width="1.5" />
+    <Position X="2" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="PorraGirona_Projecte.Properties.Settings" Collapsed="true">
-    <Position X="0.5" Y="3.5" Width="1.5" />
+    <Position X="2" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
@@ -30,21 +30,21 @@
   <Class Name="PorraGirona_Projecte.PollMember">
     <Position X="10" Y="5.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAACCAAAAggAAEAQQABAMEAAACAAAAAgAAAgI=</HashCode>
+      <HashCode>AAACCAIAACCAAAAggIAEAQQARAMEAAACAgAAAgAgAgI=</HashCode>
       <FileName>PollMember.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PorraGirona_Projecte.Club">
     <Position X="12.5" Y="1.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAIAAAACAAAQAgAAEAIQAAACEAAAAAgA=</HashCode>
+      <HashCode>AAACCAAAAAAAAIAAAICAAAQAwAAEAIQAAgCEAAAgAgA=</HashCode>
       <FileName>Club.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PorraGirona_Projecte.ShownMatch">
     <Position X="10" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAIAAACCAAAAgAAAAAAAABAAAAAQAAAAAAAAAAgA=</HashCode>
+      <HashCode>AAACCIAAACCAAAAgAIAAAAAARAAAAAQAAgAAAAAgAgA=</HashCode>
       <FileName>ShownMatch.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -53,22 +53,18 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="PorraGirona_Projecte.Championship">
-    <Position X="9.25" Y="4" Width="1.5" />
+    <Position X="12.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAEAQAABAEAAAAAIAAAACAAgA=</HashCode>
+      <HashCode>AAACCAAAAAAAAAAAAIAAEAQAQBAEAAAAAoAAAACgAgA=</HashCode>
       <FileName>Championship.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PorraGirona_Projecte.DataBase">
     <Position X="6.75" Y="1.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAQAYYwAWAQCMiIAYCAAAIQZCoBEAhAAAABAEAAAAgw=</HashCode>
+      <HashCode>AAQAYYlAUAQAFgIgQCCgAIAZAIDAAQACAAZBYCLCAgQ=</HashCode>
       <FileName>DataBase.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="ShownMatch" />
-      <Property Name="PollMember" />
-    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

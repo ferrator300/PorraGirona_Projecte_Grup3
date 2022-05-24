@@ -44,6 +44,16 @@ namespace PorraGirona_Projecte
 
             return output;
         }
+
+        public static string GetPasswordFromId(int id)
+        {
+            DataBase database = new DataBase();
+            database.Connect();
+            string output = database.GetPasswordFromId(id);
+            database.Disconnect();
+
+            return output;
+        }
         #endregion
 
         //UPDATE
