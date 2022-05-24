@@ -282,9 +282,9 @@
                         <ColumnDefinition Width="77*"/>
                         <ColumnDefinition Width="200*"/>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="label_match_local_mod" Content="Equip Local" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="105,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.ColumnSpan="2"/>
+                    <Label x:Name="label_match_local_mod" Content="Equip Local" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="118,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.ColumnSpan="2"/>
                     <Button x:Name="btn_match_mod" Content="Guardar" HorizontalAlignment="Left" Margin="128,203,0,0" VerticalAlignment="Top" Height="22" Width="124" Click="btn_mod_match_Click" FontSize="14" FontWeight="Normal" Foreground="Black" Background="White" BorderThickness="0,0,0,0" Grid.ColumnSpan="2"/>
-                    <ComboBox x:Name="comboBox_match_local_mod" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="52,68,0,0" VerticalAlignment="Top" Width="200" Height="22">
+                    <ComboBox x:Name="comboBox_match_local_mod" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="77,68,0,0" VerticalAlignment="Top" Width="175" Height="22">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -294,7 +294,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox x:Name="comboBox_match_away_mod" HorizontalAlignment="Left" Margin="147,68,0,0" VerticalAlignment="Top" Width="200" Height="22" Grid.Column="1">
+                    <ComboBox x:Name="comboBox_match_away_mod" HorizontalAlignment="Left" Margin="147,68,0,0" VerticalAlignment="Top" Width="175" Height="22" Grid.Column="1">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -304,7 +304,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Label x:Name="label_match_away_mod" Content="Equip Visitant" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="200,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
+                    <Label x:Name="label_match_away_mod" Content="Equip Visitant" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="188,40,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
                     <Label x:Name="label_vs1" Content="VS" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="98,66,0,0" VerticalAlignment="Top" Height="26" FontWeight="Bold" Width="49" Grid.Column="1"/>
                     <Label x:Name="label_date_mod" Content="Data de jornada" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="47,109,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="151" Grid.Column="1"/>
                     <DatePicker x:Name="calendar_match_mod" Grid.Column="1" HorizontalAlignment="Left" Margin="35,139,0,0" VerticalAlignment="Top" Width="176"/>
@@ -325,6 +325,11 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                     <Label x:Name="label_match_id_mod" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="76,2,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Content="ID" Grid.Column="1"/>
+                    <CheckBox x:Name="checkBox_terminate_match" Content="Acabada" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBox_match_localGoals_mod" HorizontalAlignment="Left" Margin="32,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30"/>
+                    <Label x:Name="label_gol_local_mod" Content="Gols" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94"/>
+                    <Label x:Name="label_gol_local_mod_Copy" Content="Gols" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="306,40,0,0" VerticalAlignment="Top" Height="25" FontWeight="Bold" Width="94" Grid.Column="1"/>
+                    <TextBox x:Name="txtBox_match_awayGoals_mod" HorizontalAlignment="Left" Margin="338,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30" Grid.Column="1"/>
                 </Grid>
             </TabItem>
         </TabControl>
