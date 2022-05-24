@@ -47,7 +47,7 @@ namespace PorraGirona_Projecte
             }
             else
             {
-                if (Password.GetPasswordFromId(PollMember.GetIdFromNif(txtBox_User_LogIn.Text)) == txtBox_logIn_passwd.Password.ToString())
+                if (Password.GetPasswordFromId(PollMember.GetIdFromNif(txtBox_User_LogIn.Text)) == txtBox_logIn_passwd.Password.ToString() && txtBox_logIn_passwd.Password.ToString() != "")
                 {
                     authorized = true;
                     admin = true;
