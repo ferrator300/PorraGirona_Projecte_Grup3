@@ -40,7 +40,7 @@ namespace PorraGirona_Projecte
         {
 
             //TEST
-            if (txtBox_User_LogIn.Text == "admin" && txtBox_logIn_passwd.Password.ToString() == "admin")
+            if (txtBox_User_LogIn.Text == "admin" && txtBox_logIn_passwd.Password.ToString() == "admin") //Comprovació extra per definir si és admin.
             {
                 authorized = true;
                 admin = true;
