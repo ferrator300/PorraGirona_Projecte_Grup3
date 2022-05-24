@@ -917,6 +917,37 @@ namespace PorraGirona_Projecte
             }
 
         }
+        public ShownMatch GetLastShownMatch()
+        {
+            string command = $"SELECT * FROM ShownMatch where ShownMatch_ID = (select max(ShownMatch_ID) from shownmatch);";
+
+            MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+            MySqlDataReader lines = oCommand.ExecuteReader();
+
+            try
+            {
+                ShownMatch newShownMatch = new ShownMatch();
+                Club existingLocalClub = new Club();
+                Club existingAwayClub = new Club();
+
+                while (lines.Read())
+                {
+                    newShownMatch.Id = lines.GetInt32(0);
+                    newShownMatch.DateTime = lines.GetDateTime(1);
+                    newShownMatch.LocalClub = existingLocalClub.GetOne(lines.GetInt32(2));
+                    newShownMatch.AwayClub = existingAwayClub.GetOne(lines.GetInt32(3));
+                }
+
+                lines.Close();
+                return newShownMatch;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
         #endregion
 
         //Mètode per tornar una select d'una sola columna. (legacy)

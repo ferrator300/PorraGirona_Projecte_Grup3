@@ -363,6 +363,7 @@ namespace PorraGirona_Projecte
             ChangeTab("APOSTAR");
             tab_poll.Visibility = Visibility.Visible;
             tab_poll.IsEnabled = true;
+            RefreshData();
         }
 
         //BOTONS REINICIAR CAMPS
