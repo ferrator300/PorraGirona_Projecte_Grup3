@@ -23,7 +23,7 @@
         <Button x:Name="btn_members" Content="MEMBRES" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_members_Click"/>
         <Button x:Name="btn_clubs" Content="CLUBS" HorizontalAlignment="Left" Margin="25,163,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_clubs_Click"/>
         <Button x:Name="btn_matches" Content="JORNADES" HorizontalAlignment="Left" Margin="25,217,0,0" VerticalAlignment="Top" Height="31" Width="119" FontFamily="Cascadia Code" FontWeight="Normal" Background="White" FontSize="15" Click="btn_matches_Click" RenderTransformOrigin="0.496,0.563"/>
-        <DataGrid x:Name="dataGrid_leaderBoard" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="204,69,32,29" ColumnWidth="Auto" AutoGenerateColumns="False" Visibility="Visible" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="560" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        <DataGrid x:Name="dataGrid_leaderBoard" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="204,69,32,29" ColumnWidth="Auto" AutoGenerateColumns="False" Visibility="Visible" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="560" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">
             <DataGrid.DataContext>
                 <local:PollMember/>
             </DataGrid.DataContext>
@@ -222,7 +222,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TabControl x:Name="tab_matchs" Margin="204,71,32,67" Visibility="Visible" Width="560">
+        <TabControl x:Name="tab_matchs" Margin="204,71,32,67" Visibility="Visible" Width="560" d:IsHidden="True">
             <TabItem x:Name="tab_list_match" Header="LLISTA">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGrid_matchs" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="268" RenderTransformOrigin="0.5,0.5">

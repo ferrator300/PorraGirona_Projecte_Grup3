@@ -61,6 +61,7 @@ namespace PorraGirona_Projecte
                 DataBase database = new DataBase();
                 database.Connect();
                 database.AddMatchResult(shownMatchId, localGoals, awayGoals);
+                database.AssignScoreToAllMembers(shownMatchId, localGoals, awayGoals);
                 database.Disconnect();
 
                 return true;
@@ -111,5 +112,15 @@ namespace PorraGirona_Projecte
             }
         }
         #endregion
+
+        protected void UpdateGlobalScore()
+        {
+            DataBase database = new DataBase();
+
+
+            
+        }
+
+        
     }
 }

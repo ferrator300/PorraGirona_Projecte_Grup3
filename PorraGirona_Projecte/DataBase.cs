@@ -1089,28 +1089,76 @@ namespace PorraGirona_Projecte
 
         //Operation Methods
         #region
-        public int GetPoints(int pollMemberId, string[] matchResult)
+        //public int GetPoints(int pollMemberId, string[] matchResult)
+        //{
+        //    int score = 0;
+
+        //    int shownMatchId;
+
+        //    int finalLocalGoals;
+        //    int finalAwayGoals;
+
+        //    int betLocalGoals;
+        //    int betAwayGoals;
+
+        //    try
+        //    {
+        //        shownMatchId = Convert.ToInt32(matchResult[0]);
+        //        finalLocalGoals = Convert.ToInt32(matchResult[1]);
+        //        finalAwayGoals = Convert.ToInt32(matchResult[2]);
+        //    }
+        //    catch
+        //    {
+        //        return -1;
+        //    }
+
+        //    string command = $"SELECT Local_goals, Away_goals" +
+        //                        $"FROM Bet WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
+
+        //    MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+        //    MySqlDataReader lines = oCommand.ExecuteReader();
+
+        //    betLocalGoals = lines.GetInt32(3);
+        //    betAwayGoals = lines.GetInt32(4);
+
+        //    while (lines.Read())
+        //    {
+        //        //matchResult[1] = localGoals       matchResult[2] = awayGoals
+        //        if (finalLocalGoals == betLocalGoals && finalAwayGoals == betAwayGoals)
+        //        {
+        //            score = 5;
+        //        }
+        //        else
+        //        {
+        //            if (finalLocalGoals == betLocalGoals || finalAwayGoals == betAwayGoals)
+        //            {
+        //                score = 4;
+        //            }
+        //            else if ((betLocalGoals > betAwayGoals && finalLocalGoals > finalAwayGoals) ||
+        //                (betLocalGoals < betAwayGoals && finalLocalGoals < finalAwayGoals) ||
+        //                betLocalGoals == betAwayGoals && finalLocalGoals == finalAwayGoals)
+        //            {
+        //                score = 3;
+        //            }
+        //            else if (Math.Abs(betLocalGoals - finalLocalGoals) == 1 && Math.Abs(betAwayGoals - finalAwayGoals) == 1)
+        //            {
+        //                score = 2;
+        //            }
+        //            else
+        //                score = 1;
+        //        }
+        //    }
+
+        //    return score;
+        //}
+
+        public int GetPointsOneMemberOneBet(int pollMemberId, int shownMatchId, int resultLocalGoals, int resultAwayGoals)
         {
             int score = 0;
 
-            int shownMatchId;
-
-            int finalLocalGoals;
-            int finalAwayGoals;
-
             int betLocalGoals;
             int betAwayGoals;
-
-            try
-            {
-                shownMatchId = Convert.ToInt32(matchResult[0]);
-                finalLocalGoals = Convert.ToInt32(matchResult[1]);
-                finalAwayGoals = Convert.ToInt32(matchResult[2]);
-            }
-            catch
-            {
-                return -1;
-            }
 
             string command = $"SELECT Local_goals, Away_goals" +
                                 $"FROM Bet WHERE PollMember_ID = {pollMemberId} AND ShownMatch_ID = {shownMatchId};";
@@ -1119,29 +1167,29 @@ namespace PorraGirona_Projecte
 
             MySqlDataReader lines = oCommand.ExecuteReader();
 
-            betLocalGoals = lines.GetInt32(3);
-            betAwayGoals = lines.GetInt32(4);
+            betLocalGoals = lines.GetInt32(0);
+            betAwayGoals = lines.GetInt32(1);
 
             while (lines.Read())
             {
                 //matchResult[1] = localGoals       matchResult[2] = awayGoals
-                if (finalLocalGoals == betLocalGoals && finalAwayGoals == betAwayGoals)
+                if (resultLocalGoals == betLocalGoals && resultAwayGoals == betAwayGoals)
                 {
                     score = 5;
                 }
                 else
                 {
-                    if (finalLocalGoals == betLocalGoals || finalAwayGoals == betAwayGoals)
+                    if (resultLocalGoals == betLocalGoals || resultAwayGoals == betAwayGoals)
                     {
                         score = 4;
                     }
-                    else if ((betLocalGoals > betAwayGoals && finalLocalGoals > finalAwayGoals) ||
-                        (betLocalGoals < betAwayGoals && finalLocalGoals < finalAwayGoals) ||
-                        betLocalGoals == betAwayGoals && finalLocalGoals == finalAwayGoals)
+                    else if ((betLocalGoals > betAwayGoals && resultLocalGoals > resultAwayGoals) ||
+                        (betLocalGoals < betAwayGoals && resultLocalGoals < resultAwayGoals) ||
+                        betLocalGoals == betAwayGoals && resultLocalGoals == resultAwayGoals)
                     {
                         score = 3;
                     }
-                    else if (Math.Abs(betLocalGoals - finalLocalGoals) == 1 && Math.Abs(betAwayGoals - finalAwayGoals) == 1)
+                    else if (Math.Abs(betLocalGoals - resultLocalGoals) == 1 && Math.Abs(betAwayGoals - resultAwayGoals) == 1)
                     {
                         score = 2;
                     }
@@ -1151,6 +1199,53 @@ namespace PorraGirona_Projecte
             }
 
             return score;
+        }
+
+        public bool ModMemberScore(int id, int score)
+        {
+            string command = $"UPDATE PollMember " +
+                    $"SET GlobalScore = ifnull(GlobalScore + {score}, {score}) " +
+                $"WHERE PollMember_ID = {id};";
+
+            try
+            {
+                MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+                oCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+         public void AssignScoreToAllMembers(int shownMatchId, int resultLocalGoals, int resultAwayGoals)
+        {
+            string command = $"SELECT * FROM PollMember;";
+
+            MySqlCommand oCommand = new MySqlCommand(command, mdbConnection);
+
+            MySqlDataReader lines = oCommand.ExecuteReader();
+
+            try
+            {
+                while (lines.Read())
+                {
+                    int pollMemberId = lines.GetInt32(0);
+                    int scoreOfThisMember = GetPointsOneMemberOneBet(pollMemberId, shownMatchId, resultLocalGoals, resultAwayGoals);
+                    ModMemberScore(pollMemberId, scoreOfThisMember);
+                    AddScoreHistory(pollMemberId, shownMatchId, scoreOfThisMember);
+                }
+
+                lines.Close();
+            }
+            catch(Exception ex)
+            {
+                
+            }
+            
         }
         #endregion
 

@@ -42,6 +42,7 @@ namespace PorraGirona_Projecte
             ShownMatch sm = new ShownMatch();
             MatchResult mr = new MatchResult();
             Championship ch = new Championship();
+            ScoreHistory sh = new ScoreHistory();
 
             dataGrid_leaderBoard.ItemsSource = pl.GetAll();
             dataGrid_members.ItemsSource = pl.GetAll();
@@ -643,7 +644,7 @@ namespace PorraGirona_Projecte
             {
                 //Obtenim el pollMemberId a partir del mètode que retorna un id d'usuari des d'un nif fent servir la classe CurrentUser.
                 int currentPollMemberId = PollMember.GetIdFromNif(CurrentUser.GetNif());
-                MessageBox.Show(currentPollMemberId.ToString());
+
                 bet.AddOne(currentPollMemberId, ShownMatch.GetLastShownMatch().Id, 
                     Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                     Convert.ToInt32(txtBox_localGoals_Poll.Text),
