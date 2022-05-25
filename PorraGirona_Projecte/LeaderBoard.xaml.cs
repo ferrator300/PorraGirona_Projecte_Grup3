@@ -213,8 +213,13 @@ namespace PorraGirona_Projecte
                 //Borrem el membre seleccionat de la base de dades
                 pm.RemoveOne(((PollMember)comboBox_id_mod.SelectedItem).Id);
 
-                RefreshData();
                 RestartFields("mm");
+                RefreshData();
+                MessageBox.Show("Membre eliminat correctament.");
+            }
+            catch(NullReferenceException ex)
+            {
+                MessageBox.Show("Membre eliminat correctament.");
             }
             catch (Exception ex)
             {
@@ -355,24 +360,43 @@ namespace PorraGirona_Projecte
                 
                 if (checkBox_terminate_match.IsChecked == true)
                 {
-                    int localGoals;
-                    int awayGoals;
+                    int localGoals = -1;
+                    int awayGoals = -1;
                     if (txtBox_match_localGoals_mod.Text == "") localGoals = 0;
-                    else if (txtBox_match_awayGoals_mod.Text == "") awayGoals = 0;
-                    else
+                    if (txtBox_match_awayGoals_mod.Text == "") awayGoals = 0;
+                    if (
+                        (Int32.TryParse(txtBox_match_localGoals_mod.Text, out int output1) && Int32.TryParse(txtBox_match_awayGoals_mod.Text, out int output2)) ||
+                        (Int32.TryParse(txtBox_match_localGoals_mod.Text, out int output3) && awayGoals == 0) ||
+                        localGoals == 0 && Int32.TryParse(txtBox_match_awayGoals_mod.Text, out int output4) ||
+                        (localGoals == 0 && awayGoals == 0)
+                        )
                     {
-                        localGoals = Convert.ToInt32(txtBox_match_localGoals_mod.Text);
-                        awayGoals = Convert.ToInt32(txtBox_match_awayGoals_mod.Text);
+                        #region
+                        if ((Int32.TryParse(txtBox_match_localGoals_mod.Text, out int output5)))
+                            localGoals = Convert.ToInt32(txtBox_match_localGoals_mod.Text);
+                        else
+                            localGoals = 0;
+
+                        if ((Int32.TryParse(txtBox_match_awayGoals_mod.Text, out int output6)))
+                            awayGoals = Convert.ToInt32(txtBox_match_awayGoals_mod.Text);
+                        else
+                            awayGoals = 0;
+                        #endregion
+
                         if (localGoals < 0 || awayGoals < 0) MessageBox.Show("Error. El valor dels gols no pot ser inferior a 0.");
                         else
                         {
                             mr.AddOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id, localGoals, awayGoals);
                         }
-                    } 
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error. Camps amb valors no vàlids.");
+                    }
                 }
 
-                RefreshData();
                 RestartFields("jm");
+                RefreshData();
             }
             catch (Exception ex)
             {
@@ -460,6 +484,7 @@ namespace PorraGirona_Projecte
                 txtBox_member_email_add.Text = "";
                 txtBox_member_name_add.Text = "";
                 txtBox_member_surname_add.Text = "";
+                txtBox_member_password_add.Text = "";
             }
             else if (camp == "mm")
             {
@@ -473,7 +498,7 @@ namespace PorraGirona_Projecte
                 txtBox_member_name_mod.Text = "";
                 txtBox_member_surname_mod.Text = "";
 
-                RestoreMember();
+                //RestoreMember();
             }
             else if (camp == "ca")
             {
@@ -533,9 +558,17 @@ namespace PorraGirona_Projecte
         {
             ShownMatch sm = new ShownMatch();
 
-            label_match_mod_localClub.Content = (( sm.GetOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id) ).LocalClub).Name;
-            label_match_mod_awayClub.Content = ((sm.GetOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id)).AwayClub).Name;
-            label_match_mod_dateTime.Content = (sm.GetOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id)).DateTime.ToString("dd/MM/yyyy");
+            try
+            {
+                label_match_mod_localClub.Content = ((sm.GetOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id)).LocalClub).Name;
+                label_match_mod_awayClub.Content = ((sm.GetOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id)).AwayClub).Name;
+                label_match_mod_dateTime.Content = (sm.GetOne(((ShownMatch)comboBox_match_id_mod.SelectedItem).Id)).DateTime.ToString("dd/MM/yyyy");
+            }
+            catch (NullReferenceException)
+            {
+
+            }
+            
         }
 
         private void RestoreMember()

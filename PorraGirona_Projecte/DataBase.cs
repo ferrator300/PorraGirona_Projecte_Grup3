@@ -194,7 +194,7 @@ namespace PorraGirona_Projecte
         }
         public bool AddScoreHistory(int pollMemberId, int shownMatchId, int score)
         {
-            string command = $"INSERT INTO ScoreHistory VALUES({pollMemberId}, {shownMatchId}, {score};";
+            string command = $"INSERT INTO ScoreHistory VALUES({pollMemberId}, {shownMatchId}, {score});";
 
             try
             {
@@ -211,7 +211,7 @@ namespace PorraGirona_Projecte
         }
         public bool AddMatchResult(int shownMatchId, int localGoals, int awayGoals)
         {
-            string command = $"INSERT INTO MatchResult VALUES({shownMatchId}, {localGoals}, {awayGoals};";
+            string command = $"INSERT INTO MatchResult VALUES({shownMatchId}, {localGoals}, {awayGoals});";
 
             try
             {
@@ -228,7 +228,7 @@ namespace PorraGirona_Projecte
         }
         public bool AddChampionship(string name, int division, int clubSlots)
         {
-            string command = $"INSERT INTO Championship VALUES('{name}', 1, {division}, {clubSlots};";
+            string command = $"INSERT INTO Championship VALUES('{name}', 1, {division}, {clubSlots});";
 
             try
             {
@@ -245,7 +245,7 @@ namespace PorraGirona_Projecte
         }
         public bool AddPassword(int pollMemberId, string password)
         {
-            string command = $"INSERT INTO Password VALUES({pollMemberId}, '{password}';";
+            string command = $"INSERT INTO Password VALUES({pollMemberId}, '{password}');";
 
             try
             {
