@@ -88,6 +88,9 @@
       <DependentUpon>LeaderBoard.xaml</DependentUpon>
     </Compile>
     <Compile Include="ShownMatch.cs" />
+    <Compile Include="Start.xaml.cs">
+      <DependentUpon>Start.xaml</DependentUpon>
+    </Compile>
     <Page Include="LeaderBoard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,6 +109,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Start.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PollMember.cs" />
@@ -141,6 +148,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="escut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ee37c27162f1bace19699e5a41ca8f7f.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="1652700151192.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

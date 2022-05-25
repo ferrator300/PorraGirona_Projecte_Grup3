@@ -26,6 +26,7 @@ namespace PorraGirona_Projecte
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         public DataBase DataBase
@@ -38,7 +39,11 @@ namespace PorraGirona_Projecte
 
         private void btn_LogIn_Click(object sender, RoutedEventArgs e)
         {
-
+            Start st = new Start();
+            st.Owner = this;
+            this.Hide();
+            st.ShowDialog();
+            /*
             //TEST
             if (txtBox_User_LogIn.Text == "admin" && txtBox_logIn_passwd.Password.ToString() == "admin") //Comprovació extra per definir si és admin.
             {
@@ -73,6 +78,7 @@ namespace PorraGirona_Projecte
             }
             else
                 MessageBox.Show("ERROR: Credencials incorrectes");
+            */
         }
 
         private void login_close(object sender, System.ComponentModel.CancelEventArgs e)
